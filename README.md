@@ -1,0 +1,2 @@
+# GokServer
+[aliens]GokServer
