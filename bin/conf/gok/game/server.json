@@ -1,0 +1,14 @@
+{
+	"Enable":true,
+	"DataBase":{
+		"Address":"127.0.0.1",
+		"Name":"gok_game"
+	},
+	"LocalCacheTimeout":20,
+	"RemoteCacheTimeout":86400,
+	"UserFreeTimeout":600,
+	"MaxSession":10000,
+	"SyncDBInterval":10,
+	"ZKName": "gok",
+	"RPCPort": 11010
+}

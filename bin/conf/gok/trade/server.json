@@ -1,0 +1,9 @@
+{
+	"Enable":true,
+	"Database" : {
+		"Address":"127.0.0.1",
+		"Name":"gok_trade"
+	},
+	"HTTPPort":27100,
+	"RPCPort": 11016
+}

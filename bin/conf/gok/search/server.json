@@ -1,0 +1,8 @@
+{
+	"Enable":true,
+	"Database" : {
+		"Address":"127.0.0.1",
+		"Name":"gok_search"
+	},
+	"RPCPort": 11014
+}

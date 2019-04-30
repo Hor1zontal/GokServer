@@ -1,0 +1,189 @@
+[36mINFO[0m [gok/app.Run:27] ==============================version:1.0.0.2018102901============================== 
+[36mINFO[0m [gok/app.Run:27] ==============================version:1.0.0.2018102901============================== 
+[36mINFO[0m [gok/app.Run:27] ==============================version:1.0.0.2018102901============================== 
+[36mINFO[0m [gok/app.Run:27] ==============================version:1.0.0.2018102901============================== 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public search success : /gok/service/search/5c82107b32f1a63d38c0c812-{"address":"169.254.214.62:11014"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public community success : /gok/service/community/5c82107b32f1a63d38c0c812-{"address":"169.254.214.62:11012"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public trade success : /gok/service/trade/5c82107b32f1a63d38c0c812-{"address":"169.254.214.62:11016"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public star success : /gok/service/star/5c82107b32f1a63d38c0c812-{"address":"169.254.214.62:11013"} 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).AddNode:37] add star node 5c82107b32f1a63d38c0c812 
+[36mINFO[0m [gok/module/passport/version.(*VersionInfo).RefreshVersionInfo:36] client version mapping:map[1.00.100802:dev 1.00.110801:test 1.00.111601:production 1.00.112402:production 1.00.112601:test 1.00.112701:production 1.00.120101:test] 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public passport success : /gok/service/passport/5c82107b32f1a63d38c0c812-{"address":"169.254.214.62:11015"} 
+[37mDEBU[0m [gok/module/passport/service/http.Init.func1:54] PassportHTTP::8712 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).AddNode:37] add trade node 5c82107b32f1a63d38c0c812 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public center success : /gok/service/center/5c82107b32f1a63d38c0c812-{"address":"169.254.214.62:11018"} 
+[37mDEBU[0m [gok/module/center/service/http.Init.func1:62] CenterHTTP::8711 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public user success : /gok/service/user/5c82107b32f1a63d38c0c812-{"address":"127.0.0.1:28101"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public userrpc success : /gok/service/userrpc/5c82107b32f1a63d38c0c812-{"address":"169.254.214.62:11010"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public mail success : /gok/service/mail/5c82107b32f1a63d38c0c812-{"address":"169.254.214.62:11019"} 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service mail stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service userrpc stop 
+[37mDEBU[0m [gok/module/game/user.(*SessionManager).Close:169] session release start online-0 offline-0 .... 
+[37mDEBU[0m [gok/module/game/user.(*SessionManager).Close:178] session release end duration(0) ... 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service center stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service passport stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service star stop 
+[37mDEBU[0m [gok/module/star/session.(*starManager).Close:557] star session release start count(0) .... 
+[37mDEBU[0m [gok/module/star/session.(*starManager).Close:565] star session release end duration(0) ... 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service trade stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service community stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service search stop 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/search/5c82107b32f1a63d38c0c812 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/community/5c82107b32f1a63d38c0c812 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/trade/5c82107b32f1a63d38c0c812 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/star/5c82107b32f1a63d38c0c812 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/passport/5c82107b32f1a63d38c0c812 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/center/5c82107b32f1a63d38c0c812 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/user/5c82107b32f1a63d38c0c812 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/userrpc/5c82107b32f1a63d38c0c812 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/mail/5c82107b32f1a63d38c0c812 success 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).RemoveNode:42] remove trade node 5c82107b32f1a63d38c0c812 
+[36mINFO[0m [gok/app.Run:27] ==============================version:1.0.0.2018102901============================== 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public search success : /gok/service/search/5c82127632f1a641888a3c63-{"address":"169.254.214.62:11014"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public community success : /gok/service/community/5c82127632f1a641888a3c63-{"address":"169.254.214.62:11012"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public trade success : /gok/service/trade/5c82127632f1a641888a3c63-{"address":"169.254.214.62:11016"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public star success : /gok/service/star/5c82127632f1a641888a3c63-{"address":"169.254.214.62:11013"} 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).AddNode:37] add star node 5c82127632f1a641888a3c63 
+[36mINFO[0m [gok/module/passport/version.(*VersionInfo).RefreshVersionInfo:36] client version mapping:map[1.00.120101:test 1.00.100802:dev 1.00.110801:test 1.00.111601:production 1.00.112402:production 1.00.112601:test 1.00.112701:production] 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public passport success : /gok/service/passport/5c82127632f1a641888a3c63-{"address":"169.254.214.62:11015"} 
+[37mDEBU[0m [gok/module/passport/service/http.Init.func1:54] PassportHTTP::8712 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).AddNode:37] add trade node 5c82127632f1a641888a3c63 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public center success : /gok/service/center/5c82127632f1a641888a3c63-{"address":"169.254.214.62:11018"} 
+[37mDEBU[0m [gok/module/center/service/http.Init.func1:62] CenterHTTP::8711 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public user success : /gok/service/user/5c82127632f1a641888a3c63-{"address":"127.0.0.1:28101"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public userrpc success : /gok/service/userrpc/5c82127632f1a641888a3c63-{"address":"169.254.214.62:11010"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public mail success : /gok/service/mail/5c82127632f1a641888a3c63-{"address":"169.254.214.62:11019"} 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service mail stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service userrpc stop 
+[37mDEBU[0m [gok/module/game/user.(*SessionManager).Close:169] session release start online-0 offline-0 .... 
+[37mDEBU[0m [gok/module/game/user.(*SessionManager).Close:178] session release end duration(0) ... 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service center stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service passport stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service star stop 
+[37mDEBU[0m [gok/module/star/session.(*starManager).Close:557] star session release start count(0) .... 
+[37mDEBU[0m [gok/module/star/session.(*starManager).Close:565] star session release end duration(0) ... 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service trade stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service community stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service search stop 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/search/5c82127632f1a641888a3c63 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/community/5c82127632f1a641888a3c63 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/trade/5c82127632f1a641888a3c63 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/star/5c82127632f1a641888a3c63 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/passport/5c82127632f1a641888a3c63 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/center/5c82127632f1a641888a3c63 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/user/5c82127632f1a641888a3c63 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/userrpc/5c82127632f1a641888a3c63 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/mail/5c82127632f1a641888a3c63 success 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).RemoveNode:42] remove trade node 5c82127632f1a641888a3c63 
+[36mINFO[0m [gok/app.Run:27] ==============================version:1.0.0.2018102901============================== 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public search success : /gok/service/search/5c82129432f1a6078414e9c0-{"address":"169.254.214.62:11014"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public community success : /gok/service/community/5c82129432f1a6078414e9c0-{"address":"169.254.214.62:11012"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public trade success : /gok/service/trade/5c82129432f1a6078414e9c0-{"address":"169.254.214.62:11016"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public star success : /gok/service/star/5c82129432f1a6078414e9c0-{"address":"169.254.214.62:11013"} 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).AddNode:37] add star node 5c82129432f1a6078414e9c0 
+[36mINFO[0m [gok/module/passport/version.(*VersionInfo).RefreshVersionInfo:36] client version mapping:map[1.00.100802:dev 1.00.110801:test 1.00.111601:production 1.00.112402:production 1.00.112601:test 1.00.112701:production 1.00.120101:test] 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public passport success : /gok/service/passport/5c82129432f1a6078414e9c0-{"address":"169.254.214.62:11015"} 
+[37mDEBU[0m [gok/module/passport/service/http.Init.func1:54] PassportHTTP::8712 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).AddNode:37] add trade node 5c82129432f1a6078414e9c0 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public center success : /gok/service/center/5c82129432f1a6078414e9c0-{"address":"169.254.214.62:11018"} 
+[37mDEBU[0m [gok/module/center/service/http.Init.func1:62] CenterHTTP::8711 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public user success : /gok/service/user/5c82129432f1a6078414e9c0-{"address":"127.0.0.1:28101"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public userrpc success : /gok/service/userrpc/5c82129432f1a6078414e9c0-{"address":"169.254.214.62:11010"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public mail success : /gok/service/mail/5c82129432f1a6078414e9c0-{"address":"169.254.214.62:11019"} 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service mail stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service userrpc stop 
+[37mDEBU[0m [gok/module/game/user.(*SessionManager).Close:169] session release start online-0 offline-0 .... 
+[37mDEBU[0m [gok/module/game/user.(*SessionManager).Close:178] session release end duration(0) ... 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service center stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service passport stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service star stop 
+[37mDEBU[0m [gok/module/star/session.(*starManager).Close:557] star session release start count(0) .... 
+[37mDEBU[0m [gok/module/star/session.(*starManager).Close:565] star session release end duration(0) ... 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service trade stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service community stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service search stop 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/search/5c82129432f1a6078414e9c0 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/community/5c82129432f1a6078414e9c0 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/trade/5c82129432f1a6078414e9c0 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/star/5c82129432f1a6078414e9c0 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/passport/5c82129432f1a6078414e9c0 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/center/5c82129432f1a6078414e9c0 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/user/5c82129432f1a6078414e9c0 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/userrpc/5c82129432f1a6078414e9c0 success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/mail/5c82129432f1a6078414e9c0 success 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).RemoveNode:42] remove trade node 5c82129432f1a6078414e9c0 
+[36mINFO[0m [gok/app.Run:27] ==============================version:1.0.0.2018102901============================== 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public search success : /gok/service/search/5c8212a932f1a60f30329eda-{"address":"169.254.214.62:11014"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public community success : /gok/service/community/5c8212a932f1a60f30329eda-{"address":"169.254.214.62:11012"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public trade success : /gok/service/trade/5c8212a932f1a60f30329eda-{"address":"169.254.214.62:11016"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public star success : /gok/service/star/5c8212a932f1a60f30329eda-{"address":"169.254.214.62:11013"} 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).AddNode:37] add star node 5c8212a932f1a60f30329eda 
+[36mINFO[0m [gok/module/passport/version.(*VersionInfo).RefreshVersionInfo:36] client version mapping:map[1.00.100802:dev 1.00.110801:test 1.00.111601:production 1.00.112402:production 1.00.112601:test 1.00.112701:production 1.00.120101:test] 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public passport success : /gok/service/passport/5c8212a932f1a60f30329eda-{"address":"169.254.214.62:11015"} 
+[37mDEBU[0m [gok/module/passport/service/http.Init.func1:54] PassportHTTP::8712 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).AddNode:37] add trade node 5c8212a932f1a60f30329eda 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public center success : /gok/service/center/5c8212a932f1a60f30329eda-{"address":"169.254.214.62:11018"} 
+[37mDEBU[0m [gok/module/center/service/http.Init.func1:62] CenterHTTP::8711 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public user success : /gok/service/user/5c8212a932f1a60f30329eda-{"address":"127.0.0.1:28101"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public userrpc success : /gok/service/userrpc/5c8212a932f1a60f30329eda-{"address":"169.254.214.62:11010"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public mail success : /gok/service/mail/5c8212a932f1a60f30329eda-{"address":"169.254.214.62:11019"} 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service mail stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service userrpc stop 
+[37mDEBU[0m [gok/module/game/user.(*SessionManager).Close:169] session release start online-0 offline-0 .... 
+[37mDEBU[0m [gok/module/game/user.(*SessionManager).Close:178] session release end duration(0) ... 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service center stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service passport stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service star stop 
+[37mDEBU[0m [gok/module/star/session.(*starManager).Close:557] star session release start count(0) .... 
+[37mDEBU[0m [gok/module/star/session.(*starManager).Close:565] star session release end duration(0) ... 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service trade stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service community stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service search stop 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/search/5c8212a932f1a60f30329eda success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/community/5c8212a932f1a60f30329eda success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/trade/5c8212a932f1a60f30329eda success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/star/5c8212a932f1a60f30329eda success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/passport/5c8212a932f1a60f30329eda success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/center/5c8212a932f1a60f30329eda success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/user/5c8212a932f1a60f30329eda success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/userrpc/5c8212a932f1a60f30329eda success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/mail/5c8212a932f1a60f30329eda success 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).RemoveNode:42] remove trade node 5c8212a932f1a60f30329eda 
+[36mINFO[0m [gok/app.Run:27] ==============================version:1.0.0.2018102901============================== 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public search success : /gok/service/search/5c8212c632f1a62e18840f3b-{"address":"169.254.214.62:11014"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public community success : /gok/service/community/5c8212c632f1a62e18840f3b-{"address":"169.254.214.62:11012"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public trade success : /gok/service/trade/5c8212c632f1a62e18840f3b-{"address":"169.254.214.62:11016"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public star success : /gok/service/star/5c8212c632f1a62e18840f3b-{"address":"169.254.214.62:11013"} 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).AddNode:37] add star node 5c8212c632f1a62e18840f3b 
+[36mINFO[0m [gok/module/passport/version.(*VersionInfo).RefreshVersionInfo:36] client version mapping:map[1.00.100802:dev 1.00.110801:test 1.00.111601:production 1.00.112402:production 1.00.112601:test 1.00.112701:production 1.00.120101:test] 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public passport success : /gok/service/passport/5c8212c632f1a62e18840f3b-{"address":"169.254.214.62:11015"} 
+[37mDEBU[0m [gok/module/passport/service/http.Init.func1:54] PassportHTTP::8712 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).AddNode:37] add trade node 5c8212c632f1a62e18840f3b 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public center success : /gok/service/center/5c8212c632f1a62e18840f3b-{"address":"169.254.214.62:11018"} 
+[37mDEBU[0m [gok/module/center/service/http.Init.func1:62] CenterHTTP::8711 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public user success : /gok/service/user/5c8212c632f1a62e18840f3b-{"address":"127.0.0.1:28101"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public userrpc success : /gok/service/userrpc/5c8212c632f1a62e18840f3b-{"address":"169.254.214.62:11010"} 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).PublicService:337] public mail success : /gok/service/mail/5c8212c632f1a62e18840f3b-{"address":"169.254.214.62:11019"} 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service mail stop 
+[37mDEBU[0m [gok/module/game/internal.(*Module).OnDestroy:45] 11111111111111111111111111111111111111111111111111111111 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service userrpc stop 
+[37mDEBU[0m [gok/module/game/user.(*SessionManager).Close:169] session release start online-0 offline-0 .... 
+[37mDEBU[0m [gok/module/game/user.(*SessionManager).Close:178] session release end duration(0) ... 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service center stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service passport stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service star stop 
+[37mDEBU[0m [gok/module/star/session.(*starManager).Close:557] star session release start count(0) .... 
+[37mDEBU[0m [gok/module/star/session.(*starManager).Close:565] star session release end duration(0) ... 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service trade stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service community stop 
+[36mINFO[0m [gok/service.(*GRPCService).Start.func1:115] rpc service search stop 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/search/5c8212c632f1a62e18840f3b success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/community/5c8212c632f1a62e18840f3b success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/trade/5c8212c632f1a62e18840f3b success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/star/5c8212c632f1a62e18840f3b success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/passport/5c8212c632f1a62e18840f3b success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/center/5c8212c632f1a62e18840f3b success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/user/5c8212c632f1a62e18840f3b success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/userrpc/5c8212c632f1a62e18840f3b success 
+[36mINFO[0m [aliens/center/core.(*ServiceCenter).ReleaseService:309] release /gok/service/mail/5c8212c632f1a62e18840f3b success 
+[37mDEBU[0m [gok/module/cluster/hashring.(*ServiceListener).RemoveNode:42] remove trade node 5c8212c632f1a62e18840f3b 

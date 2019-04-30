@@ -1,0 +1,9 @@
+{
+	"Enable":true,
+	"DataBase":{
+		"Address":"127.0.0.1",
+		"Name":"gok_star"
+	},
+	"ZKName": "gok",
+	"RPCPort": 11013
+}

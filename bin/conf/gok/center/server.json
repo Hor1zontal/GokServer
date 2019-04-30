@@ -1,0 +1,12 @@
+{
+	"Enable":true,
+	"Database" : {
+		"Address":"127.0.0.1",
+		"Name":"gok_center"
+	},
+	"ZKName": "gok",
+	"HTTPAddress": ":8711",
+	"AppKey":"e434e639ff7247aea5622f339b383c",
+	"RPCPort": 11018,
+	"IsSign": false
+}

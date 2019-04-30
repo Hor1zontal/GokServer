@@ -7,8 +7,6 @@ classes/
 GOKPassportServer/build
 GOKServer/pkg
 GOKServer/src/google.golang.org
-bin/
-bins/
 server.iml
 src/gok/ci/gok/star/base/BuildingsBase_bak.xlsx
 src/gok/network/msg/protocol/build.bat

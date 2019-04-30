@@ -1,0 +1,9 @@
+{
+  "Enable":true,
+  "Database" : {
+    "Address":"127.0.0.1",
+    "Name":"gok_mail"
+  },
+  "RedisExpireTime":2592000,
+  "RPCPort": 11019
+}

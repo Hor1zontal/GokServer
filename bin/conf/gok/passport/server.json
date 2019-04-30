@@ -1,0 +1,19 @@
+{
+	"Enable":true,
+	"Database":{
+		"Address":"127.0.0.1",
+		"Name":"gok_passport"
+	},
+	"DefaultChannelPWD" : "11111111",
+	"HTTPAddress": ":8712",
+	"AppKey":"e434e639ff7247aea5622f339b383c",
+	"RPCPort": 11015,
+	"IsSign": false,
+	"VersionUrl":"http://www.alienidea.com/cdn/Gok/managerConfig.json",
+	"ServerInfo":"dev",
+	"Vivo":{
+		"CpID": "63c756ab306100ff84f1",
+		"AppID": "100000236",
+		"AppSecret": "e4ab7829edd0196bf8844bc80149f910"
+	}
+}
