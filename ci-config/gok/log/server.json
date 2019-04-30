@@ -1,0 +1,8 @@
+{
+	"Enable":true,
+	"RedisAddress":"127.0.0.1:6379",
+	"Database" : {
+		"Address":"127.0.0.1:27017",
+		"Name":"gok_log"
+	}
+}

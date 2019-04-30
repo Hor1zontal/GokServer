@@ -1,0 +1,1 @@
+./ZKCopy -from 120.77.213.111:2182 -fromPath /gok/config -to server.alienidea.com:2181 -toPath /gok1/config

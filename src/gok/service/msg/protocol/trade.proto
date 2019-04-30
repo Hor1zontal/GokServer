@@ -1,0 +1,168 @@
+syntax = "proto3";
+package protocol;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+message Goods {
+    int32 id = 1; //物品编号
+    int32 num = 2; //数量
+    int32 price =3; //单价
+}
+
+//获取货架信息
+message get_goods_info {
+    int32 uid = 1; //
+}
+
+message get_goods_info_ret {
+    repeated Goods goods = 1; //当前出售的商品
+}
+
+//购买物品
+message buy_goods {
+    int32 uid = 1; //购买的指定用户
+    int32 itemid = 2; //购买物品id
+    int32 num = 3; //购买数量
+    int32 social = 4; //用户拥有的数量
+}
+
+message buy_goods_ret {
+    int32 num = 1; //剩余数量
+    int32 fee = 2; //购买花费的金额
+}
+
+//发布物品
+message public_goods {
+    int32 uid = 1;
+    Goods goods = 2;
+}
+
+message public_goods_ret {
+    bool result = 1;
+}
+
+//撤销物品
+message cancel_goods {
+    int32 uid = 1;
+    int32 itemid = 2;
+}
+
+message cancel_goods_ret {
+    Goods goods = 1;
+}
+
+
+//------------------------------------------圣物求组--------------------
+//发布圣物求助
+message publicItemHelp {
+    int32 itemID = 1; //发布求助的圣物id
+    bool isWatchAd = 2;
+}
+
+message publicItemHelpRet {
+    int32 cost = 1; //扣除的圣物碎片数量
+    ItemHelp itemHelp = 2;//发布后的数据
+}
+
+//取消圣物求助
+message cancelItemHelp {
+   int32 itemID = 1;
+}
+
+message cancelItemHelpRet {
+    bool result = 1;
+}
+
+//领取求组到的圣物
+message drawItemHelp {
+    int32 itemID = 1;
+    bool cancel = 2; //是否领取后顺带关闭求助
+}
+
+message drawItemHelpRet {
+    int32 itemID = 1; //领取的圣物id
+    int32 itemNum = 2; //领取到的圣物数量
+    ItemHelp itemHelp = 3;//领取后的状态
+}
+
+//获取求助信息
+message getItemHelp {
+    int32  uid = 1; //
+    string id = 2; //求助id  拜访不需要传，获取玩家当前的求组信息
+    string newsFeedID = 3; //通过点击的消息id，如果求助信息变更，需要更新这条消息
+}
+
+message getItemHelpRet {
+    ItemHelp itemHelp = 1;
+}
+
+//偷取圣物
+message lootHelpItem {
+    int32 uid = 1;   //偷取的玩家id
+    int32 itemID = 2;  //偷取的圣物id
+    int32 power = 3; //玩家当前的法力值 服务端内部参数
+    repeated int32 costs = 4; //服务端内部参数
+    int32 limit = 5; //服务器内部参数 单个玩家抢夺成功的上限
+    repeated float probs = 6; //服务器内部参数 每一次抢夺成功的概率
+    float addProb = 7; //服务器内部参数 buff抢夺加成概率
+    bool isWatchAd = 8; //是否通过看广告来偷取圣物
+    bool eachFollow = 9; //服务器内部参数 当前是否互相关注
+
+    string id = 10; //记录id
+}
+
+message lootHelpItemRet {
+    bool result = 1;   //偷取结果
+    int32 cost = 2; //扣取的法力值
+    ItemHelp itemHelp = 3; //偷取后的信息
+    bool eachFollow = 4; //是否产生互相关注
+}
+
+//援助圣物
+message helpItem {
+    int32 uid = 1;   //支援的玩家
+    int32 itemID = 2;  //支援的圣物id
+    int32 limit = 3;  //服务器内部参数 支援的总上限
+    bool eachFollow = 4; //服务器内部参数 当前是否互相关注
+
+    string id = 10; //记录id
+}
+
+message helpItemRet {
+    bool result = 1;
+    int32 gayPoint = 2; //获取到的圣物碎片数量
+    ItemHelp itemHelp = 3; //偷取后的信息
+    bool eachFollow = 4; //是否产生互相关注
+}
+
+message getHelpItemHistory {
+    int32 uid = 1;
+    int32 skip = 2;
+    int32 limit = 3;
+    bool count = 4; //是否需要获取总数
+}
+
+message getHelpItemHistoryRet {
+    repeated ItemHelp itemHelp = 1;
+    int32 count = 2;
+}
+
+message ItemHelp {
+    string id = 1 [(gogoproto.moretags) = "bson:\"_id\""];
+    int32 uid = 2 [(gogoproto.moretags) = "bson:\"uid\""];
+    int32 itemID = 3 [(gogoproto.moretags) = "bson:\"itemID\""];
+    int32 ItemNum = 4 [(gogoproto.moretags) = "bson:\"itemNum\""]; //当前求助到的圣物数量
+    int32 DrawNum = 5 [(gogoproto.moretags) = "bson:\"drawNum\""]; //领取次数
+    int32 LootNum = 6 [(gogoproto.moretags) = "bson:\"lootNum\""]; //偷取成功次数
+    int32 helpNum = 7 [(gogoproto.moretags) = "bson:\"helpNum\""]; //协助次数
+    repeated ItemEvent Events = 8 [(gogoproto.moretags) = "bson:\"events\""]; //发生的事件
+    bool overdue = 10 [(gogoproto.moretags) = "bson:\"overdue\""]; //求助是否过期 是否历史记录
+}
+
+message ItemEvent {
+    int32 uid = 1 [(gogoproto.moretags) = "bson:\"uid\""];
+    int32 type = 2 [(gogoproto.moretags) = "bson:\"type\""];  //0协助成功 1偷取失败 2偷取成功
+    //int32 count = 3 [(gogoproto.moretags) = "bson:\"count\""];
+    bool draw = 4 [(gogoproto.moretags) = "bson:\"draw\""]; //是否已经领取
+    bool isNew = 5 [(gogoproto.moretags) = "bson:\"isNew\""]; //是否新好友
+}

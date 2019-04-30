@@ -1,0 +1,2 @@
+java -jar KylinTools.jar -d javascript -i ./in -o ./js/table.js -t ./zk.template
+zkupdate.exe -address 192.168.0.120:2181 -node /gok/config -jsPath ./js/*.js -jsonPath ./json/*.json -blackList ./config.txt

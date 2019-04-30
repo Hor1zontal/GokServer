@@ -1,0 +1,112 @@
+syntax = "proto3";
+package protocol;
+
+//朋友圈相关接口
+
+//朋友圈信息
+message moment_info {
+    string id = 1;             //朋友圈消息id
+    int32  uid = 2;            //发布的玩家uid
+    //string nickname = 3;     //昵称
+    //string avatar = 4;       //头像地址
+    int64  createTime = 3;     //创建时间
+    string data = 4;           //朋友圈消息内容
+//  int32  type = 3;           //分享消息类型   1分享圣物 2分享圣物组合 3分享新信徒  4分享任务
+//  repeated int32  info = 4;           //关联id 参数信息
+}
+
+//获取用户详细信息
+message get_user_detail {
+    repeated int32 uid = 1;
+}
+
+message get_user_detail_ret {
+    repeated user_detail userDetail = 1;
+}
+
+message user_detail {
+    int32 uid = 1;
+    string nickname = 2; //昵称
+    string avatar = 3; //头像地址
+}
+
+//评论信息
+//message comment_info {
+//    int32 momentId = 1;    //朋友圈id
+//    int32 uid = 2;         //发表评论的用户id
+//    string nickName = 3;   //发表评论的用户昵称
+//    string msg = 4;        //评论内容
+//    int32 replyId = 5;     //回复哪条评论 0：不针对那条
+//}
+
+
+////发布朋友圈消息
+//message public_moment {
+//     int32  uid = 1;           //发消息玩家uid
+//     string data = 2;          //朋友圈消息内容
+//}
+//
+////发布朋友圈消息结果
+//message public_moment_ret {
+//    string id = 1;             //朋友圈id
+//    int64 createTime = 2;      //朋友圈消息的创建时间
+//}
+
+//发布朋友圈消息
+message public_moment {
+    int32  uid = 1;          //发消息玩家uid
+    int32 type = 2;          //朋友圈消息类型
+    int32 refID = 3;         //朋友圈消息关联id
+}
+
+//发布朋友圈消息结果
+message public_moment_ret {
+    moment_info momentInfo = 1; //朋友全内容
+}
+
+message remove_moments {
+    int32 uid = 1;
+    repeated string momentsID = 2;
+    int32 saleID = 3; //
+}
+
+message remove_moments_ret {
+    bool result = 1;
+}
+
+//获取用户收到的朋友圈消息
+message get_receive_moments {
+    int32 uid = 1;        //用户id
+    int64 beforeTime = 2; //过滤条件 发布时间小于此时间戳(前)的信息
+    int32 count = 3;      //过滤条件 获取数量  服务器内部字段
+    int32 offset = 4;     //查询的起始偏移量
+}
+
+message get_receive_moments_ret {
+    repeated moment_info moments = 1;
+}
+
+//获取指定用户发布的朋友圈信息
+message get_public_moments {
+    int32 uid = 1;
+    int64 beforeTime = 2; //过滤条件 此时间戳前的信息
+    int32 count = 3;      //过滤条件 获取数量 服务器内部字段
+    int32 offset = 4;     //查询的起始偏移量
+}
+
+message get_public_moments_ret {
+    repeated moment_info moments = 1;
+}
+
+
+//发表评论
+//message add_comment {
+//    comment_info comment = 1;
+//}
+//
+////发表评论结果
+//message add_comment_ret {
+//    bool result = 1;
+//}
+
+//-------------------------------------------rpc事件模块内部处理的消息--------------------------------------

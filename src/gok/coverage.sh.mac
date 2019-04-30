@@ -1,0 +1,18 @@
+EXECUTEPATH=/Users/hejialin/git/server/gokserver/bins/cluster
+GOROOT=/usr/local/Cellar/go/1.10/libexec #gosetup
+GOPATH=/Users/hejialin/git/server/gokserver:/Users/hejialin/git/server/t08lib
+
+
+go test -c -covermode=count -coverpkg .,./cache/,./cache/ -o main.test
+mv main.test $EXECUTEPATH
+cd $EXECUTEPATH
+./main.test -systemTest -test.coverprofile coverage.cov -test.trace trace.out -test.cpuprofile cpu.out -test.memprofile mem.out -test.blockprofile block.out
+
+go tool cover -html=./coverage.cov -o coverage.html
+open coverage.html
+
+#go tool pprof  mem.out cpu.out block.out
+#web
+#go help testflag
+
+#windows cmd /c start coverage.html

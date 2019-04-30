@@ -1,0 +1,1 @@
+java -jar KylinTools.jar -d javascript -i /Users/hejialin/Downloads/testconvert -o /Users/hejialin/Downloads/testconvert/js.out -t /Users/hejialin/Downloads/testconvert/js.template

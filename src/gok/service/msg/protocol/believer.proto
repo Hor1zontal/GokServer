@@ -1,0 +1,70 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+
+//
+message auto_add_believer {
+    int32 uid = 1;
+    int32 times = 2;
+}
+
+message auto_add_believer_ret {
+    repeated believer_info believer = 1; //变化的信徒信息
+    int64 believerTime = 2; //下次更新信徒的时间
+}
+
+message update_believer_info {
+
+}
+
+message update_believer_info_ret {
+    repeated believer_info believer = 1;
+}
+
+//升级信徒
+message upgrade_believer {
+    string selectID = 1; //选中的信徒1  id
+    string matchID = 2;  //选中的信徒2  id
+    int32 uid = 3; //用户id  服务端内部添加，转发请求到星球模块
+    int32 faith = 4; //用户当前的信仰值
+    //int32 civilizationLevel = 5; //文明度等级
+}
+
+//升级信徒结果
+message upgrade_believer_ret {
+    believer_info result = 1; //升级后的新信徒
+    int32 cost = 2; //实际
+    civilization_info civilizationInfo = 3; //变更后的文明值信息
+    int32 itemID = 4; //获取的圣物  0代表没有
+    //int32 civilization = 3; //获取的文明值
+}
+
+message update_believer {
+    int32 uid = 1; //变更的用户id
+    repeated believer_info updateInfo = 2; //变更的信徒信息
+    int32 operation = 3; //0新增  1删除  2替换
+    bool isConvert = 4;
+}
+
+message update_believer_ret {
+    bool result = 1; //操作结果
+    repeated believer_info believer = 2; //信徒变更推送
+    int32 faith = 3;
+}
+
+message believer_flag_info {
+
+}
+
+message believer_flag_info_ret {
+    repeated string id = 1; //信徒id
+    repeated bool value = 2; //信徒是否合成过
+    repeated int64 time = 3;//信徒激活时间
+}
+
+
+
+//信徒信息变更推送
+message believer_push {
+    repeated believer_info believer = 1; //信徒变更推送
+}

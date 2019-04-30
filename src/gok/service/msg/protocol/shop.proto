@@ -1,0 +1,73 @@
+syntax = "proto3";
+package protocol;
+
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+//购买商品道具
+message buy_shop_item {
+    int32 id = 1;
+}
+
+//购买商品道具结果
+message buy_shop_item_ret {
+
+}
+
+//生成支付订单
+message gen_order {
+    int32 uid = 1; //服务器内部传输
+    int32 shopID = 2; //商品id
+    double amount = 3; //商品价格 单位元
+}
+
+message gen_order_ret {
+    string orderID = 1;
+}
+
+//------------------------------圣物商城------------------------------
+message refresh_mall_item {
+    bool isWatchAd = 1;
+}
+
+message refresh_mall_item_ret {
+    repeated MallItem items = 1;
+    int32 cost = 2;
+}
+
+message buy_mall_item {
+    int32 ID = 1;
+}
+
+message buy_mall_item_ret {
+    MallItem item = 1;
+}
+
+message get_mall_item {
+
+}
+
+message get_mall_item_ret {
+    int64 refreshTime = 1;
+    repeated MallItem items = 2;
+    int32 cost = 3;
+}
+
+message auto_refresh_mall_item {
+
+}
+
+message auto_refresh_mall_item_ret {
+    int64 refreshTime = 1 ;
+    repeated MallItem items = 2 ;
+    int32 cost = 3;
+}
+
+message MallItem {
+    int32 ID = 1 [(gogoproto.moretags) = "bson:\"id\""];
+    int32 itemID = 2 [(gogoproto.moretags) = "bson:\"itemID\""];
+    int32 num = 3 [(gogoproto.moretags) = "bson:\"num\""];
+    int32 buyTimes = 4 [(gogoproto.moretags) = "bson:\"buyTimes\""];
+    int32 groupCost = 5 [(gogoproto.moretags) = "bson:\"groupCost\""];
+}
+//---------------------------------------------------------------

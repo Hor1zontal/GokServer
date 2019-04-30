@@ -1,0 +1,107 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+
+//获取临时背包物品
+message get_temp_item {
+
+}
+
+message get_temp_item_ret {
+    repeated int32 itemID = 1;
+}
+
+//临时背包物品放入主背包
+message takein_bag {
+    //repeated int32 itemID = 1;
+}
+
+message takein_bag_ret {
+    //bool result = 1;
+    repeated int32 itemID = 2; //放入背包的物品id
+}
+
+//获取背包道具列表
+message get_bag_item {
+    int32 uid = 1;
+}
+
+message get_bag_item_ret {
+    repeated bag_item itemList = 1;
+}
+
+//message active_building_group {
+//    int32 uid = 1; //用户ID
+//    //int32 buildingType = 2; //建筑ID
+//    active_group activeGroup = 3; //激活图鉴
+//    //active_group_item activeGroupItem = 4; //激活图鉴物品
+//}
+
+//message active_building_group_ret {
+//    repeated int32 buildingItems = 1; //*放入后建筑的物品
+//    active_group_ret activeGroupRet = 2; //激活的组id
+//    //active_group_item_ret activeGroupItemRet = 3; //激活的
+//    civilization_info civilizationInfo = 4; //激活奖励的文明度
+//}
+
+//激活图鉴
+message active_group {
+    int32 uid = 1; //用户ID
+    int32 groupID = 2;//组合ID
+    repeated int32 itemID = 3;
+}
+
+message active_group_ret {
+    //int32 groupID = 1;  //成功的组合id
+    bool result = 1;//是否成功
+    civilization_info civilizationInfo = 2; //激活奖励的文明度
+    int32 satifyNum = 3;
+}
+
+message item_group_open_push {
+    int32 groupID = 1;
+}
+
+//物品图鉴组合
+message item_group {
+    int32 groupID = 1; //物品图鉴组合id
+    //repeated int32  itemID = 2; //当前已解锁的物品id
+    //bool getReward = 3;   //奖励是否已领取
+//    int64 time = 4; //组合的完成时间
+    bool done = 5; //物品组合是否完成
+    repeated item_group_record itemGroupRecord = 6;
+    bool active = 7;
+}
+
+message item_group_record {
+    repeated int32 itemID = 1;
+    int32 num = 2;//满足item个数
+}
+
+//获取组合列表
+message get_item_group {
+    int32 uid = 1;
+    int32 starType = 2;
+}
+
+message get_item_group_ret {
+    repeated item_group itemGroup = 1;
+}
+
+//领取组合奖励
+message get_group_reward {
+    int32 groupID = 1;  //领取奖励的组合id
+}
+
+message get_group_reward_ret {
+    int32 groupID = 1;  //领取奖励的组合id
+}
+
+message get_current_group {
+    int32 uid = 1;
+}
+
+message get_current_group_ret {
+    int32 groupID = 1;
+}
+

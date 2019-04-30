@@ -1,0 +1,153 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+
+//服务端不允许login文件名存在,特改为bblogin
+//登录相关通讯协议
+enum login_Result {
+	lnone = 0;
+	loginSuccess = 1;				//登录成功
+	invalidUser = 2;				//用户不存在
+	invalidPwd = 3;					//验证密码失败
+	forbiddenUser = 4;				//封号
+	invalidMaintain = 5; 		    //游戏正在维护
+	invalidGameServer = 6;          //连接游戏服务器失败
+}
+
+enum register_Result {
+	rnone = 0;
+	registerSuccess = 1;		    //注册成功
+	userExists = 2;				    //用户名已经存在
+	invalidFormat = 3;				//用户名格式不符合规范
+	invalidServer = 6;              //连接游戏服务器失败
+}
+
+enum server_Result {
+	snone = 0;
+    success = 1;    //分配服务器成功
+    maintenance = 2; //维护中
+    notLogin = 3;//未登录
+}
+
+//登录服务器注册账号
+message login_register{
+    string username = 1;	    //用户名
+	string password = 2;		//密码
+}
+
+//登录服务器注册账号返回
+message login_register_ret {
+    register_Result result = 1;    //注册结果
+    int32 uid = 2;                 //用户id 注册成功返回此字段
+    string token = 3;              //登录令牌 注册成功返回此字段
+    string gameServer = 4;         //返回游戏服务器地址
+    string msg = 5;                //反馈消息 登录失败返回
+}
+
+
+//用户名密码登录服务器
+message login_login{
+	string username = 1;		//用户名
+	string password = 2;		//密码
+}
+
+//登录服务器返回
+message login_login_ret{
+	login_Result result = 1;	//登录结果
+	int32 uid = 2;             //用户id
+	string token = 3;          //登录令牌
+	string gameServer = 4;     //返回游戏服务器地址
+}
+
+//登录游戏服务器
+message login_server{
+	string token = 1;		//登录token,由第三方登录接口传回
+	string platform = 2;	//客户端平台,"iOS/Android/web"
+	string version = 3;	//客户端版本号
+	int32 serverId = 4;	//选择的登录服务器
+	string deviceId = 5;	//设备信息,"huawei/xiaomi/samsung/iphone6/iphone6s"
+	string channel = 6;	//渠道信息,"360/baidu/xiaomi"
+	int32 userId = 7;		//用户id
+	string ip = 9; //玩家ip
+	int32 inviteID = 10; //invited by who
+	invite_type inviteType = 11;
+}
+
+//登录游戏服务器返回
+message login_sever_ret{
+    role_info roleInfo = 1;    //角色信息，没有代表需要创建角色
+	int32 userId = 2;			//用户id
+	int64 serverTime = 3;		//服务器时间
+}
+
+//channel string, channelUID string, openID string, nick string, avatar string
+
+//渠道登录
+message channel_login {
+	string channel = 1; //渠道编号
+	string channelUID = 2; //渠道用户id
+	string openID = 3;
+	string nickname = 4;
+	string avatar = 5;
+}
+
+//渠道登录结果
+message channel_login_ret {
+	int32 result = 1; //结果码
+	int32 uid = 2; //登录成功后游戏的uid
+	string token = 3; //登录成功后的token信息use
+	bool new = 4; //是否新账号
+	string gameServer = 5; //游戏服务器地址信息
+
+}
+
+
+message change_user_state {
+	int32 uid = 1;
+	int32 state = 2;
+}
+
+message change_user_state_ret {
+	bool result = 1;
+}
+
+
+//转移用户会话数据
+message transfer_remote_user_session {
+	int32 uid = 1;
+}
+
+
+message transfer_remote_user_session_ret {
+	bytes session = 1;
+}
+
+message refresh_client_version {
+}
+
+message refresh_client_version_ret {
+	bool result = 1;
+}
+
+message wechat_event_push {
+	int32 uid = 1;
+	string event = 2;
+	int32 delay = 3; //0 不需要延迟 1延迟推送
+}
+
+message clean_test_account {
+	int32 uid = 1;
+}
+
+message clean_test_account_ret {
+	bool result = 1;
+	string message = 2;
+}
+
+message query_by_username {
+	string username = 1;
+}
+
+message query_by_username_ret {
+	repeated int32 uids = 1;
+}

@@ -1,0 +1,13 @@
+{
+	"Enable":true,
+	"Database" : {
+		"Address":"mongodb://aliens001:eZkZ6pMstAm8MY7Y@127.0.0.1:27017/gok_center",
+		"Name":"gok_center"
+	},
+	"RedisAddress":"127.0.0.1:20101",
+	"RedisPassword":"55d1JRzYLwnD4Zhh",
+	"HTTPAddress": ":8711",
+	"AppKey":"e434e639ff7247aea5622f339b383c",
+	"RPCPort": 11018,
+	"IsSign": false
+}

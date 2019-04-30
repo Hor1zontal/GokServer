@@ -1,0 +1,11 @@
+{
+	"Enable":true,
+	"Database" : {
+		"Address":"mongodb://aliens001:eZkZ6pMstAm8MY7Y@127.0.0.1:27017/gok_mail",
+		"Name":"gok_mail"
+	},
+	"RedisAddress":"127.0.0.1:20101",
+	"RedisPassword":"55d1JRzYLwnD4Zhh",
+	"RedisExpireTime":2592000,
+	"RPCPort": 11019
+}

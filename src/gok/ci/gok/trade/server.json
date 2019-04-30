@@ -1,0 +1,10 @@
+{
+	"Enable":true,
+	"Database" : {
+		"Address":"mongodb://aliens001:eZkZ6pMstAm8MY7Y@127.0.0.1:27017/gok_trade",
+		"Name":"gok_trade"
+	},
+	"RedisAddress":"127.0.0.1:20101",
+	"RedisPassword":"55d1JRzYLwnD4Zhh",
+	"RPCPort": 11016
+}

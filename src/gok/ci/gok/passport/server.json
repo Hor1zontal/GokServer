@@ -1,0 +1,15 @@
+{
+	"Enable":true,
+	"Database" : {
+		"Address":"mongodb://aliens001:eZkZ6pMstAm8MY7Y@127.0.0.1:27017/gok_passport",
+		"Name":"gok_passport"
+	},
+	"HTTPAddress": ":8712",
+	"RedisAddress":"127.0.0.1:20101",
+	"RedisPassword":"55d1JRzYLwnD4Zhh",
+	"DefaultChannelPWD" : "11111111",
+	"RPCPort": 11015,
+	"IsSign": false,
+	"VersionUrl":"http://www.alienidea.com/cdn/Gok/managerConfig.json",
+	"ServerInfo":"test"
+}

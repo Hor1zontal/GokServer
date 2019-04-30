@@ -1,0 +1,158 @@
+syntax = "proto3";
+package protocol;
+//角色相关接口
+import "aacommon.proto";
+//创建角色
+message create_role {
+	int32 icon = 1;             //用户头像
+	string nickname = 2;       //用户昵称
+}
+
+//创建角色结果
+message create_role_ret {
+	int32 result = 1;          //0创建成功  1用户未登录 2角色已存在 3非法的角色名
+	role_info roleInfo = 2;    //用户角色信息
+}
+
+message get_avatar {
+    repeated int32 uid = 1;
+}
+
+message get_avatar_ret {
+    repeated int32 uid = 1;
+    repeated string avatar = 2;
+}
+
+//获取角色信息
+message get_role_info{
+
+}
+
+//获取角色信息结果
+message get_role_info_ret {
+    role_info roleInfo = 1;    //用户角色信息
+}
+
+//角色进入游戏，调用此接口，服务端才会创建角色会话
+message join_game {
+    int32 id = 1;    //角色id
+}
+
+message join_game_ret {
+    //TODO 角色游戏初始数据返回
+}
+
+//离开游戏，调用此接口后需要重新登录
+message leave_game {
+
+}
+
+message leave_game_ret {
+    bool result = 1;
+}
+
+//角色信息推送
+message role_info_push {
+    int32  level = 1;   //角色等级
+    int32  exp = 2;     //角色当前等级经验
+    int32  power = 3;   //角色法力值
+    int32  powerLimit = 4;  //角色的法力值上限
+    int32  faith = 5;   //角色信仰值
+    int32  diamond = 6; //钻石
+    int32  gayPoint = 7; //友情点
+    bool   subscribe = 8; //是否关注公众号
+}
+
+message role_power_push {
+    int32 power = 1; //用户的法力值
+    int64 updateTimestamp = 2; //下一次自动更新法力值的时间戳
+}
+
+//获取角色标识信息
+message role_flag_info {
+
+}
+
+message role_flag_info_ret {
+    repeated flag_info flag = 1;    //1是否有消息面板新内容  2是否有好友面板新内容 3是否播放过开场动画
+}
+
+//更新标识
+message update_flag {
+    int32 flag = 1;
+    int32 value = 2;
+}
+
+message update_flag_ret {
+    bool result = 1;  //更新结果
+}
+
+message role_display_info {
+    int32 min = 1; //标识最小值
+    int32 max = 2; //标识最大值 -1代表没有上限
+}
+
+message role_display_info_ret {
+    repeated int32 id = 1;
+}
+
+
+message update_display {
+    int32 id = 1;
+}
+
+
+message update_display_ret {
+    bool result = 1;
+}
+
+//标识更新推送
+//message role_flag_push {
+//    int32 flag = 1;
+//    int32 value = 2;
+//    int64 time = 3; //标识的最新更新时间
+//}
+
+message update_power {
+
+}
+
+message update_power_ret {
+    int32 power = 1; //当前法力值
+    int64 updateTimestamp = 2; //下一次更新法力值的时间
+    int64 serverTimestamp = 3; //服务器时间
+}
+
+message day_gift_status {
+
+}
+
+message day_gift_status_ret {
+    bool draw = 1; //是否领取每日礼包
+}
+
+message correct_civil_reward {
+    int32 uid = 1;
+    int32 power = 2;
+}
+
+message correct_civil_reward_ret {
+
+}
+
+message update_unlock_flag {
+    int32 uid = 1;
+    repeated flag_info flags = 2;
+}
+
+message update_unlock_flag_ret {
+
+}
+
+message query_by_nickname {
+    string nickname = 1;
+}
+
+message query_by_nickname_ret {
+    repeated int32 uids = 1;
+}

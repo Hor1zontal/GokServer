@@ -1,0 +1,45 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+
+message get_star_statistics{
+    int32 uid = 1;//用户ID( 服务端专用 )
+    int32 starID = 2;//星球ID
+}
+
+message get_star_statistics_ret{
+    int32 uid = 1; //用户ID( 服务端专用 )
+    int32 starID = 2; //星球ID
+    repeated Statistics statistics = 3; //统计信息s
+}
+
+message update_star_statistics {
+    int32 uid = 1;
+    int32 id = 2;
+    double change = 3;
+    int32 param = 4;
+}
+
+message update_star_statistics_ret {
+    double value = 1; //变更后的数值
+}
+
+message get_star_history {
+    int32 starID = 1;
+    int32 uid = 2;
+}
+
+message get_star_history_ret {
+    int32 starID = 1;
+    int32 uid = 2;
+    repeated History history = 3;
+    repeated int64 time = 4;
+}
+
+message History {
+    int32 id = 1;  //1开启事件 2受到攻击 3发起攻击
+    int32 param1 = 2;
+    int32 param2 = 3;
+    string param3 = 4;
+    int64 time = 5;
+}

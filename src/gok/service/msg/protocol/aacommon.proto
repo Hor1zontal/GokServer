@@ -1,0 +1,180 @@
+syntax = "proto3";
+package protocol;
+//所有业务失败返回结果(推送)
+message result_push{
+    int32 result = 1;           //错误消息id,通过此id到cn.js找对应提示文字
+    int32 attach = 2;           //附带信息，物品相关错误码 返回的为物品id
+    string msg = 3;             //错误信息,错误消息id为0时使用这个消息提示
+}
+
+message kick_off {
+    int32 uid = 1; //T人ID
+    int32 kickType = 2; //T人方式
+}
+
+//心跳包,客户端每隔一段时间发送请求
+message heart_beat{
+
+}
+
+//心跳包返回
+message heart_beat_ret{
+
+}
+
+//被服务器踢下线推送,长时间没操作结果
+message kickoff_push{
+    int32 type = 1;  //1用户在其他地方登陆 2长时间没操作 3服务器关闭
+}
+
+//角色信息
+message role_info {
+    int32  id = 1;      //角色id
+    //int32  icon = 2;    //角色图标
+    string nickname = 3; //角色昵称
+    int32  level = 4;  //角色等级
+    int32  exp = 5;    //角色当前等级经验
+    int32  power = 6;  //角色法力值
+//    int32  limit = 7;  //角色的法力值上限
+    int32  faith = 8;  //角色信仰值
+    int64  updateTimestamp = 9; //下一次自动更新法力值的时间戳
+//    int32  starID = 10;//星球id
+//    int32  starType = 11;//星球类型
+    int32  diamond = 12;//钻石
+    int32  powerLimit = 13; //法力值上限
+
+    //repeated int32  flag = 14;    //1是否有消息面板新内容  2是否有好友面板新内容 3是否播放过开场动画
+    //repeated int32  value = 15;   //0 代表没有
+    repeated flag_info flag = 14; //1是否有消息面板新内容  2是否有好友面板新内容 3是否播放过开场动画 用户标识
+
+    int32  gayPoint = 16; //友情点
+    string desc = 17; //个人描述信息 不能超过15个字
+    string avatar = 18; //头像地址
+    bool subscribe = 19; //是否关注公众号
+}
+
+
+//建筑信息
+message building_info {
+    int32 id = 1;     //建筑id
+    int32 type = 2;   //建筑类型
+    int32 Level = 3;  //建筑当前等级
+    int64 repairTime = 4;//建筑维修的时间戳
+    int64 updateTime = 5;//建筑升级的时间戳
+    int64 brokenTime = 6;//建筑物的待维修时间戳
+    //repeated item_groove itemGrooves = 9; //当前建筑的圣物槽
+    bool exist = 10; //建筑是否建造过
+    repeated int32 buffID = 11; //buff id
+    repeated int32 buffNum = 12; //buff数量
+
+    repeated level_info levelInfo = 14; //建筑的完成时间
+}
+
+message building_faith {
+    int32 buildingType = 1; //建筑ID
+    int32 buildingFaith = 2; //可领取的信仰值
+    int64 faithUpdateTime = 3; //上次的信仰结算时间
+}
+
+message believer_cost {
+    string believerID = 1;
+    int32 num = 2;
+}
+
+message level_info {
+    int32 level = 1; //建筑等级
+    int64 time = 2; //对应等级的完成时间
+    repeated believer_cost believerCost = 3; //信徒的消耗记录
+    int32 faithCost = 4; //升级修理总共消耗的信仰值
+}
+
+message flag_info {
+    int32 id = 1; //标识
+    int32 value = 2; //标识值
+    int64 time = 3; //标识最新的更新时间
+}
+
+//建筑信息
+message building_buff_info {
+    int32 type = 2;   //建筑类型
+    repeated int32 buffID = 11; //buff id
+    repeated int32 buffNum = 12; //buff数量
+}
+
+message believer_info {
+    string id = 1;      //信徒id
+    int32 num = 2;      //信徒的数量
+}
+
+//星球信息( 详细 ) @brief wjl 20170601 新增
+message star_info_detail {
+    int32 starID = 1; //星球id
+    int32 type = 2; //星球类型
+    int32 ownID = 3;//拥有者的ID
+    repeated building_info building = 4; //当前已经解锁的建筑信息
+    repeated believer_info believer = 5; //当前的信徒信息
+    int64 createTime = 6;
+    int64 doneTime = 7;
+    int32 seq = 8; //星球解锁序号
+    int32 civilizationLv = 19;   //当前文明度等级
+    int32 civilizationProgress = 20; //当前文明度等级的进度
+    repeated civilization_reward civilizationReward = 21; //文明度奖励领取情况
+    repeated flag_info starFlags = 22; //当前星球的flag
+}
+
+message civilization_reward {
+    int32 level = 1;  //文明度等级
+    bool draw = 2; //是否领取奖励
+}
+
+message civilization_info {
+    int32 starID = 1;
+    int32 starSeq = 2;
+    int32 civilizationLv = 3;   //当前文明度等级
+    int32 civilizationProgress = 4; //当前文明度等级的进度
+}
+
+message Statistics {
+    int32 id = 1; //统计数据id
+    double value = 2; //统计数值
+}
+
+//星球历史纪录信息
+//message star_history_messages {
+//    int32  onlineTime = 1; //当前星球的在线时间,单位s
+//    int32  eventTriggerNum = 2; //当前星球的事件触发数量（包括未完成的）
+//    int32  eventAttackedNum = 3; //当前星球的被攻击次数
+//    int32  buildedNum = 4; //当前星球的建造次数（包括未完成的和损毁的）
+//    int32  upgradeBelieverNum = 5; //当前星球合成信徒的次数
+//}
+
+//物品
+message bag_item {
+    int32 id = 1; //物品id
+    int32 num = 2; //物品数量
+    int64 time = 3; //激活时间
+}
+
+//建筑的物品槽
+//message item_groove {
+//    //int32 color = 1; //物品槽颜色
+//    //bool open = 2;   //是否解锁
+//    int32 itemID = 2; //当前放入该槽的物品id,没有则为0
+//    bool effect = 3; //是否生效
+//    int64 effectTimestamp = 4; //生效的时间戳
+//}
+
+message Reward {
+    int32 faith = 1;
+    repeated believer_info believer = 2;
+    int32 itemID = 3;
+    int32 gayPoint = 4;
+    int32 diamond = 5;
+    int32 power = 6;
+}
+
+message invite_type {
+    int32 type = 1; 	//1 -- 求助 2 -- 炫耀
+    int32 refType = 2;	//1 -- 信徒 2 -- 信仰 3 -- 法力  4 -- 修理建筑（只跟求助有关） 5 -- 圣物
+    int32 refNum = 3;
+}

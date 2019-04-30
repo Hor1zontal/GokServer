@@ -1,0 +1,9 @@
+{
+  "Enable":true,
+  "Database" : {
+    "Address":"127.0.0.1:27017",
+    "Name":"gok_mail"
+  },
+  "RedisAddress":"127.0.0.1:6379",
+  "RPCPort": 11019
+}

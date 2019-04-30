@@ -1,0 +1,20 @@
+{
+  "Enable":true,
+  "UserInfo": [
+    {
+      "BuildRange":[2,6],
+      "BelieverRange":[3,19],
+      "UserCount":50
+    },
+    {
+      "BuildRange":[7,12],
+      "BelieverRange":[20,49],
+      "UserCount":50
+    },
+    {
+      "BuildRange":[13,24],
+      "BelieverRange":[50,150],
+      "UserCount":50
+    }
+  ]
+}

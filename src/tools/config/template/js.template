@@ -1,0 +1,38 @@
+//此文件为工具生成，不允许修改
+window.jsonTables = window.jsonTables || {};
+window.tb = window.tb || {};
+window.jsonTables_zh = window.jsonTables_zh || {};
+window.jsonTables_en = window.jsonTables_en || {};
+
+//表名常量
+
+
+//表字段常量
+
+//枚举
+<table>
+// [${table_alias}:${field_alias}]	
+<enum>tb.${enum_name} = ${enum_value}; //${enum_alias}
+</enum>
+</table>
+
+
+//表格名枚举
+<table>
+jsonTables.TABLE.${table_uppername} = "${table_name}" // [${table_alias}]
+</table>
+
+
+//表格字段枚举
+<table>
+//[${table_alias}]
+<field>
+jsonTables.ATTR.${table_fixname}_${field_fixname} = "${field_name}";   //${field_alias}
+</field>
+</table>
+
+
+//表格数据
+<table>
+jsonTables_en[jsonTables.TABLE.${table_fixname}] = ${table_data}
+</table>

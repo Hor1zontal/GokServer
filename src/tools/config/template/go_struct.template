@@ -1,0 +1,12 @@
+package conf
+
+<table>
+// [${table_alias}]	
+type ${table_fixname} struct {
+	<field>${field_fixname} ${field_type} `json:"${field_name}"`   //${field_alias}
+	</field>
+}
+</table>
+
+
+

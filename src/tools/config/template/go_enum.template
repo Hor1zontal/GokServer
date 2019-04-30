@@ -1,0 +1,11 @@
+package constant
+
+
+const(
+<table>
+	// [${table_alias}:${field_alias}]	
+	<enum>${enum_name} ${enum_type} = ${enum_value} //${enum_alias}
+	</enum>
+</table>
+)
+

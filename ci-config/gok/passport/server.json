@@ -1,0 +1,17 @@
+{
+	"Enable":true,
+	"Database" : {
+		"Address":"127.0.0.1:27017",
+		"Name":"gok_passport"
+	},
+	"HttpPort":8070,
+	"RedisAddress":"127.0.0.1:6379",
+	"DefaultChannelPWD" : "11111111",
+	"HTTPAddress": ":8711",
+	"AppKey":"e434e639ff7247aea5622f339b383c",
+	"ZKServers": [
+		"127.0.0.1:2181"
+	],
+	"ZKName": "gok",
+	"RPCPort": 11015
+}

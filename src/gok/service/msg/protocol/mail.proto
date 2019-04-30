@@ -1,0 +1,96 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+
+message Mail {
+    int64  id = 1;
+    int32  owner = 2;
+    string title = 3;
+    string content = 4;
+    int64  createTime = 5;
+    Attach attach = 6;  //附件
+}
+
+//邮件附件
+message Attach {
+    bool   draw   = 1;
+    int32  power  = 2;
+    int32  faith  = 3;
+    int32  gayPoint = 4;
+    int32  diamond	= 5;
+    repeated believer_info Believer = 6;
+    repeated bag_item Item = 7;
+}
+
+message get_mail {
+    int32   Uid = 1;
+    int64   BeforeTime = 2;
+    int32   Count = 3;
+    int64   Offset = 4;
+}
+
+message get_mail_ret {
+    repeated Mail mail = 1;
+}
+
+message get_all_mail {
+    int32 uid = 1; //服务端内部传输
+}
+
+message get_all_mail_ret {
+    repeated Mail mail = 1; //所有邮件
+}
+
+
+//领取邮件附件
+message draw_mail {
+    int32 uid = 1; //用户id,内部传输
+    int64 mailID = 2; //邮件id
+}
+
+//领取邮件结果
+message draw_mail_ret {
+    Mail mail = 1;
+}
+
+
+//领取邮件附件
+message remove_mail {
+    int32 uid = 1; //用户id,内部传输
+    repeated int64 mailID = 2; //删除的邮件id
+}
+
+//领取邮件结果
+message remove_mail_ret {
+    bool result = 1; //领取结果
+}
+
+//发送邮件
+message create_mail {
+    int32 uid = 1;
+    string title = 2;
+    string content = 3;
+    string mailAttach = 4;
+}
+
+message create_mail_ret {
+    Mail mail = 1;
+}
+
+message Notice {
+    int32 noticeID = 1;
+    string title = 2;
+    string content = 3;
+    int64 start = 4;
+    int64 end = 5;
+    int32 status = 6;
+}
+
+message get_on_notices {
+    int32 status = 1;//公告状态 0--进行中 1--未开始 2--已结束
+}
+
+message get_on_notices_ret {
+    repeated Notice notices = 1;
+}
+

@@ -1,0 +1,11 @@
+{
+	"Enable":true,
+	"Database" : {
+		"Address":"mongodb://aliens001:eZkZ6pMstAm8MY7Y@127.0.0.1:27017/gok_star",
+		"Name":"gok_star"
+	},
+	"RedisAddress": "127.0.0.1:20101",
+	"RedisPassword":"55d1JRzYLwnD4Zhh",
+	"FreeTimeout": 86400,
+	"RPCPort": 11013
+}

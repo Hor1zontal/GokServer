@@ -1,0 +1,1 @@
+./ZKCopy -from 120.77.213.111:2182 -fromPath /aliens -to 127.0.0.1:2181 -toPath /aliens

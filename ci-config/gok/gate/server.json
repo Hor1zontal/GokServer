@@ -1,0 +1,11 @@
+{
+	"Enable":true,
+	"LogLevel": "debug",
+	"LogPath": "",
+	"MaxConnNum": 20000,
+	"TCPAddr": ":3578",
+	"WSAddr": ":28101",
+	"SecretKey": "h1ElZH4J1O&Q",
+	"PublicWSAddress": "server.alienidea.com:28101",
+	"MessageChannelLimit":5
+}

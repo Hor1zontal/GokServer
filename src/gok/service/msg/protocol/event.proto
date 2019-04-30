@@ -1,0 +1,533 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+import "star.proto";
+
+//事件加入成员
+message EventMember {
+    int32 uid =1;        //事件的加入玩家 游戏外玩家为空
+    string nickname = 2; //事件的加入玩家昵称
+    string msg = 3;      //留言
+    int32 icon = 4;      //玩家图标
+}
+
+message Event {
+    int32 eventID = 1;             //事件id
+    int32 baseID = 2;              //事件基础表的id
+    int32 step = 3;                //事件当前的步骤 从1开始
+    Event_Module stepModule = 4;   //事件当前步骤的模块信息
+    int32 displayStarUid = 5;      //进入事件显示的星球所属用户id
+    EventMember callMember = 6;    //事件发起者信息
+}
+
+message Event_Module {
+    int32 moduleID = 1;         //模块id
+    int64 startTimestamp = 2;   //事件当前部分的开始时间戳
+    int64 endTimestamp = 3;     //事件当前部分的结束时间戳，0代表没有时间限制
+
+    string data = 4;            //模块数据
+}
+
+//------------新增接口-----------
+
+message displayStarUid_push {
+    int32 displayStarUid = 1;      //显示星球用户id变更推送
+}
+
+//获取事件步骤模块数据
+message get_event_module {
+        int32 eventID = 1;  //事件id
+        int32 moduleID = 2; //事件模块id
+}
+
+//获取事件步骤模块数据 编号
+message get_event_module_ret {
+        int32 eventID = 1;  //事件id
+        Event_Module stepModule = 2; //事件模块数据
+}
+
+//完成事件步骤
+message done_event_step {
+    int32 eventID = 1; //事件id
+    int32 step = 2; //事件步骤
+}
+
+message done_event_step_ret {
+    bool result = 1; //是否切换成功
+}
+
+//事件步骤信息变更推送
+message event_step_push {
+    int32 eventID = 1; //事件id
+    int32 baseID = 2; //当前的事件基础id
+    int32 step = 3; //当前事件步骤
+    Event_Module stepModule = 4;//切换到的步骤
+}
+
+//获取事件摘要信息
+message get_event {
+    repeated int32 eventID = 1;
+}
+
+message get_event_ret {
+    repeated Event event = 1;
+}
+
+
+//----------------------------------------------------------------------------------
+//------------------------------------事件模块信息------------------------------------
+//----------------------------------------------------------------------------------
+
+//------------------------------display模块------------------------------------------
+message Module_Display {
+}
+
+//------------------------------分镜模块---------------------------------------------
+message Module_Storyboard {
+
+}
+
+//-------------------------------选择目标模块----------------------------------------
+message Module_Random_Target {
+    EventMember target = 1;        //事件目标 未选择目标为空
+}
+
+//随机获取事件目标
+message random_target {
+    int32 eventID = 1;   //事件id
+    int32 uid = 2;       //用户id
+    repeated int32 filter = 3;    //过滤的用户            由服务端传入
+//    int32 building = 4;  //建筑过滤条件          由服务端传入
+//    int32 repair = 5;    //建筑修理状态过滤条件    由服务端传入
+//    int32 broken = 6;    //建筑损坏过滤条件        由服务端传入
+//    int32 believer = 7;  //信徒过滤条件          由服务端内部传入
+    bool  guide = 8; //是否引导
+    int32 mutualID = 9;  //是否随机复仇玩家
+    int32 friendID = 10; //是否随机好友
+    int32 eventType = 11; //
+    int32 num = 12; //随机的目标个数
+    bool robotFilter = 13; //是否过滤掉机器人
+    bool alwaysTarget = 14 ; //是否不将搜索目标添加到过滤列表
+}
+
+message random_target_ret {
+    int32 eventID = 1;              //事件id
+    repeated Target targets = 2;       //随机到的目标列表
+}
+
+message open_card {
+    int32 eventID = 1;   //事件id
+    int32 uid = 2;       //用户id
+   // int32 cardID = 3;    //选择的卡牌id
+}
+
+message open_card_ret {
+    int32 result = 1;   //1,2,3 获得的奖励序号 对应 reward + result的数值
+    CardReward reward1 = 2;  //
+    CardReward reward2 = 3;  //
+    CardReward reward3 = 4;  //
+}
+
+message CardReward {
+    int32 type = 1; //奖励类型
+    int32 value = 2; //数量
+
+    Target target = 3; //类型为随机目标才有
+    star_info_detail starInfo = 4;  //类型为随机目标,且选取卡片为这个选项才有
+}
+
+message random_guide_robot {
+    int32 num = 1;
+}
+
+//随机引导机器人
+message random_guide_robot_ret {
+    repeated Target targets = 1;       //随机到的目标列表
+}
+
+//随机事件机器人
+message random_event_robot {
+    int32 eventType = 1; //事件类型
+    repeated int32 level = 2; //随机的时间机器人等阶
+}
+
+message random_event_robot_ret {
+    repeated Target targets = 1;       //随机到的目标列表
+}
+
+message get_event_robot {
+    int32 uid = 1; // robotID
+}
+
+message get_event_robot_ret {
+    Target target = 1;
+}
+
+message Target {
+    int32  id = 1;      //用户id
+    string avatar = 2; //头像地址
+    string nickname = 3; //角色昵称
+    int32 starType = 4; //星球类型
+    bool friend = 5; //是否好友
+    bool mutual = 6; //是否复仇目标
+    int32 believerTotalLevel = 7; //信徒的总等级
+    int32 buildingTotalLevel = 8;//建筑总等级
+}
+
+//选取事件目标
+message select_event_target {
+    int32 eventID = 1;     //事件id
+    int32 targetId = 2;    //事件的目标用户id
+    string nickname = 3;   //事件的目标用户昵称
+}
+
+//选取事件目标结果
+message select_event_target_ret {
+    bool result = 1;  //
+    star_info_detail starInfo = 2;  //星球信息
+    shield shield = 3; //星球防护盾信息
+}
+
+//-------------------------------招募模块----------------------------------------
+message Module_Recruit {
+    repeated EventMember joinMember = 1;    //招募成功的事件参与者
+}
+
+//事件发布招募
+message public_event{
+    int32 eventID = 1;     //事件ID
+    string msg = 2;        //事件留言
+    repeated int32 channel = 3;     //招募渠道 1游戏内  2微信朋友圈
+    repeated int32 uid = 4;         //招募玩家id  招募渠道包含了游戏内才需要填写这些值
+}
+
+//发布事件事件招募返回
+message public_event_ret {
+    int32 eventID = 1;          //事件ID
+    int64 endTimestamp = 2;     //发布事件成功后的结束时间戳变更推送
+}
+
+//用户招募请求
+message assist_event_request {
+    int32 eventID = 1;     //事件id
+    int32 uid =2;          //请求招募的用户id
+    string nickname = 3;   //请求招募的用户昵称
+    string msg = 4; //招募宣言
+    int64 timestamp = 5; //招募的时间戳
+}
+
+message assist_event_request_ret {
+    bool result  = 1;
+}
+
+//招募请求
+message assist_event_request_list {
+}
+
+//招募请求列表
+message assist_event_request_list_ret {
+    repeated assist_event_request request = 1;
+}
+
+//招募请求信息推送
+message assist_event_request_push {
+    assist_event_request request = 1;
+}
+
+//拒绝事件招募
+message reject_assist_event {
+    int32 eventID = 1;     //事件id
+}
+
+message reject_assist_event_ret {
+    bool result = 1;     //处理结果
+}
+
+//加入招募
+message accept_assist_event {
+    int32 eventID = 1;     //事件id
+    int32 uid = 2;         //接受招募的用户id  游戏外部玩家为0
+    string nickname = 3;   //接受招募的用户昵称
+    string msg = 4;        //接受招募的用户留言
+}
+
+//
+message accept_assist_event_ret {
+    Event event = 1; //加入招募事件信息获取
+}
+
+//玩家加入招募推送
+message assist_result_push {
+    int32 eventID = 1;                  //事件id
+    EventMember joinMember = 2;    //事件招募加入者
+}
+
+//--------------------------------buff模块----------------------------------------
+
+message Module_Buff {
+    repeated EventField fields = 1;    //Buff字段
+}
+
+//事件属性
+message EventField {
+    string name = 1;     //事件字段名
+    int32 value = 2;     //事件当前值
+}
+
+//更新事件字段信息
+message update_event_field {
+    int32  eventID = 1; //事件id
+    string name = 2;//修改的字段名
+    int32 value = 3; //修改的字  -1代表减少一个  1代表加一个
+}
+
+message update_event_field_ret {
+    bool result = 1;
+}
+
+//事件扩展字段变更推送
+message event_field_push {
+    int32 eventID = 1;             //事件id
+    EventField field = 2;          //扩展字段
+}
+
+//-------------------------------切换星球模块--------------------------------------
+message Module_Switch_Star {
+
+}
+
+//--------------101 刷信仰模块---------
+message get_faith {
+    int32 eventID = 1;             //事件id
+    repeated string believerID = 2;             //选择区域内的信徒
+}
+
+message get_faith_ret {
+    int32 faith = 1; //获取到的信仰值
+    string believerID = 2; //选中的信徒
+}
+
+//-------------102 刷信徒模块-----------
+message get_believer {
+    int32 eventID = 1;             //事件id
+}
+
+message get_believer_ret {
+    repeated believer_info believer = 1; //获取的信徒
+}
+
+//-------------103 抢信仰-----------
+message loot_faith {
+    int32 eventID = 1; //事件id
+    int32 faith = 2; //抢夺的信仰值
+    //repeated string believerID = 2;             //选择区域内的信徒
+    bool mutual = 3; //(是否解锁交互，服务端内部用)
+}
+
+message loot_faith_ret {
+    int32 faith = 1;   //抢夺的信仰数量
+    //string believerID = 2; //选中的信徒
+    int32 targetID = 2; //*被抢夺信仰的用户id
+    bool shield = 3;//是否被防护盾抵消
+    bool hasBuilding = 4; //被抢夺信仰的玩家是否拥有建筑
+    bool isMax = 5;//true:满级或没有解锁交互
+}
+
+//-------------104 抢信仰-----------
+message atk_star_building {
+    int32 eventID = 1;    //事件id
+    int32 buildingID = 2; //攻打的建筑id
+    int32 attackUid = 3;  //*攻击的用户id
+    int32 destUid = 4;    //*被攻击的用户id
+    float faithRatio = 5; //*抢夺信仰的系数
+    int32 buildingLevel = 6; //玩家当前建筑总等级
+    bool success = 7; //是否破坏成功
+    int32 buildingHurt = 8;
+    bool mutual = 9; //(是否解锁交互，服务端内部用)
+}
+
+message atk_star_building_ret {
+    bool success = 1; //是否破坏成功st
+    int32 faith = 2; //获取到的信仰
+    int32 itemID = 3; //获取到的图鉴id
+    int32 targetID = 4; //*被破坏的用户id
+    bool shield = 5;//是否被防护盾抵消
+    bool isMax = 6;//true:满级或没有解锁交互
+}
+
+//-------------105 抢信徒-----------
+message loot_believer {
+    int32 eventID = 1;             //事件id
+    repeated string believerID = 2;         //选择区域内的信徒
+    bool mutual = 3; //(是否解锁交互，服务端内部用)
+}
+
+message loot_believer_ret {
+    repeated string believerID = 1; //被抓走的信徒
+    int32 targetID = 2;    //*被抢夺信徒的用户id
+    bool shield = 3;//是否被防护盾抵消
+    bool isMax = 4; //true:满级或没有解锁交互
+}
+
+//-------------------------------选择目标区域模块--------------------------------------
+//message Module_Attack {
+//
+//}
+
+//攻击星球建筑
+//message select_area {
+//    int32 mode = 1; //操作方式 		"mode":0	//0 偷取信仰  1 破坏建筑 2 抓取信徒
+//    int32 eventID = 2; //事件id
+//    int32 srcUid = 3; //进攻方用户id
+//    int32 destUid = 4; //目标方用户ID
+//    int32 destBuildingId = 5;//目标方建筑ID
+//}
+//
+//message select_area_ret {
+//    int32 eventID = 1; //事件ID
+//    int32 faith = 2; //获取的信仰
+//    int32 itemID = 3; //随机获取的圣物
+//    int32 believerID = 4; //抢夺的信徒id
+//}
+
+//-----------------------------------------------------------------------------------
+
+//进入查看事件
+message into_event {
+    int32 uid = 1; //用户id
+    int32 eventID = 2; //事件id
+}
+
+//进入查看事件结果
+message into_event_ret {
+    Event event = 1; //事件状态信息
+}
+
+//离开事件  离开事件就不会接收到事件信息的推送
+message leave_event {
+    int32 uid = 1; //用户id
+    int32 eventID = 2; //事件id
+}
+
+message leave_event_ret {
+    bool result = 1; //事件结果
+}
+
+//-------------------------------投票模块--------------------------------------
+
+//发布投票
+message public_vote {
+    int32 eventID = 1;     //事件id
+    repeated int32 channel = 2;     //投票渠道 1游戏内  2微信朋友圈
+    repeated int32 uid = 3;         //投票玩家id  投票渠道包含了游戏内才需要填写这些值
+}
+
+message public_vote_ret {
+    int32 eventID = 1;          //事件ID
+    int64 endTimestamp = 2;     //发布事件成功后的结束时间戳变更推送
+}
+
+
+//事件投票,固定一票，不用传票数
+message add_event_vote {
+    int32 eventID = 1;
+    int32 option =2;
+    int32 uid =3; //用户id
+}
+
+message add_event_vote_ret {
+    bool result = 1; //客户端自动加一，减少查询压力
+}
+
+//投票完成推送
+message vote_finish_push {
+    int32 eventID = 1; //事件id
+    Vote result = 2;   //最终的投票结果
+}
+
+message vote_push {
+    int32 eventID = 1; //事件id
+    repeated Vote vote = 2; //投票信息
+}
+
+message Vote {
+    int32 no = 1;
+    int32 voteNum = 2;
+}
+
+////-------------------------------抓信徒模块--------------------------------------
+//message capture_believer {
+//    int32 eventID = 1; //事件id
+//    string believerID = 2;    //信徒id
+//}
+//
+//message capture_believer_ret {
+//    int32 eventID = 1; //事件id
+//    string believerID = 2;
+//    bool result = 3;
+//}
+
+//------------------------------小游戏模块----------------------------------------
+
+message data_flag {
+    string key = 1;
+    int32 value = 2;
+}
+
+message save_data {
+    int32 eventID = 1;      //事件id
+    repeated data_flag data = 2;    //要存储的数据
+}
+
+message save_data_ret {
+    bool resule = 1; //结果
+}
+
+//-------------------------------------------rpc事件模块内部处理的消息--------------------------------------
+//生成新事件
+message gen_event {
+    int32 eventType = 1;   //事件类型
+    int32 uid = 2;         //事件发起的用户id
+    string nickname = 3;   //事件发起的用户昵称
+    bool guide = 4; //是否引导事件
+//    int32 starID = 4;  //星球id
+//    int32 starType = 5;//星球类型RandomTargetRet
+}
+
+//生成新事件结果
+message gen_event_ret {
+    Event event = 1; //事件对象
+}
+
+//事件字段变更推送
+message event_field_change {
+    int32 eventID = 1;   //事件id
+    string name = 2;     //事件字段名
+    int32 value = 3;     //事件当前值
+}
+
+message remove_event {
+    int32 eventID = 1; //事件id
+    int32 uid = 2; //删除事件的用户id
+}
+
+//
+////信徒奖励
+//message Believer {
+//    string id = 1;//信徒id
+//}
+
+//事件完成,发送给用户模块做结算
+message event_done {
+    int32 eventID = 1;      //事件id
+    Reward reward = 2;      //奖励
+    bool guide = 3;         //是否引导任务
+    int32 targetID = 4;     //目标id
+//    int32 faith = 2;        //事件中获取的信仰值
+//    repeated believer_info believers = 3; //获取到的信徒数据
+//    int32 itemID = 4; //事件中获取的物品
+}
+
+message event_done_ret {
+    bool result = 1;   //
+}

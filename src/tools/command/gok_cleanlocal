@@ -1,0 +1,9 @@
+#!/bin/sh
+redis-cli -h 127.0.0.1 -p 6379 -a aliens flushall
+
+collections="gok_game gok_passport gok_event gok_star gok_community gok_search gok_mail gok_trade"
+
+for collection in $collections;
+do
+	mongo $collection --eval "db.dropDatabase()" 
+done 

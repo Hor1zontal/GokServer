@@ -1,0 +1,84 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+
+message Task {
+    int32 id = 1;         //任务id
+    int32 baseID = 2;     //任务类型id 配置表的基础id
+    int32 state = 3;      //任务状态  1进行中 2已完成 客户端记得删除
+    int32 eventID = 4;    //关联id  关联到相应事件id
+    int32 endingID = 5;   //结局ID,默认初值0
+    Reward reward = 6;  //事件任务结束奖励的信仰值
+}
+
+//随机事件任务
+message random_event_task {
+    int32 filterType = 1; //随机奖励类型0不需要过滤 1信仰 2信徒 3法力
+}
+
+message random_event_task_ret {
+    Task task = 1; //随机到的任务，没有随机成功,不会包含任务对象
+    int32 decPower = 2; //扣除的法力值
+}
+
+//复仇任务
+message random_revenge_task {
+    string id = 1; //动态消息id
+    bool guide = 2; //是否引导
+}
+
+message random_revenge_task_ret {
+    Task task = 1; //随机到的任务
+    int32 decPower = 2; //扣除的法力值
+}
+
+//获取任务列表
+message get_task_list {
+}
+
+//获取任务列表
+message get_task_list_ret {
+    repeated Task tasks = 1;     //任务列表
+}
+
+//触发任务
+message trigger_task {
+    int32 taskType = 1;
+    int32 eventID = 2;
+}
+
+message trigger_task_ret {
+    bool result = 1;
+}
+
+//设定结局ID
+message set_task_ending {
+    int32 taskId = 1; //事件id
+    int32 endingID = 2; //结局ID
+}
+
+message set_task_ending_ret {
+    bool result = 1;
+}
+
+message random_dial {
+}
+
+message random_dial_ret {
+    int32 position = 1;
+//    repeated believer_info believerDial = 2; //
+    Task task = 3; //
+//    int32 faith = 4;
+//    int32 power = 5;
+    int32 decPower = 6;
+    Reward reward = 7;
+    bool multiple = 8;
+}
+
+message multiple_dial_reward {
+    int32 type = 1; // 1--分享 2--看广告
+}
+
+message multiple_dial_reward_ret {
+    Reward reward =1;
+}

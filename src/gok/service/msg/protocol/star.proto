@@ -1,0 +1,370 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+
+//星球基本信息( 自己 )@brief wjl 20170601 新增
+message star_info_base{
+    int32 starID = 1;//星球id
+    int32 type = 2;//星球类型
+    int32 ownID = 3;//拥有者的ID
+    string ownNikeName = 4;//拥有者的用户昵称
+}
+
+message transmit_user_star {
+    int32 userID = 1;
+}
+
+message transmit_user_star_ret {
+//    bytes activeStar = 1;
+    repeated bytes stars = 1;
+}
+
+message help_repair_build_public {
+    int32 buildingType = 1;
+}
+
+message help_repair_build_public_ret {
+    int32 buildingType = 1;
+}
+
+
+message login_star_info {
+    int32 uid = 1;
+}
+
+message login_star_info_ret {
+    repeated star_info star = 1; //已经解锁的星球
+    star_info currStar = 2; //当前星球
+    int32 powerLimit = 5; //法力值上限
+    repeated building_state upgradedBuilding = 6;//已经升级的建筑
+    repeated building_state repairedBuilding = 7;//已经修理成功的建筑
+    repeated building_state allBuilding = 8;//所有的建筑信息
+    repeated flag_info starFlags = 9; //所有星球flag
+}
+
+message building_state {
+    int32 starType = 1;
+    int32 buildingType = 2;
+    int32 buildingLevel = 3;
+}
+
+message star_info {
+    int32 starID = 1;
+    int32 starType = 2;
+}
+
+message get_stars_select {
+    int32 num = 1;  //要选择的星球的个数 -1为全部
+    int32 uid = 2; //服务器内部用  不用传
+}
+
+message get_stars_select_ret {
+    repeated int32 starsType = 1;
+}
+
+message select_star {
+    int32 starType = 1;
+}
+
+message select_star_ret {
+    repeated star_info star = 1; //拥有的所有星球id
+    star_info_detail currentStar = 2;//下一个星球数据
+    int32 lastStarType = 3; //上一个星球的类型
+    int32 faith = 4; //建筑总收取的信仰
+    repeated int32 items = 5; //收取的圣物
+}
+
+//获取用户星球信息
+message get_star_info{
+}
+
+//获取用星球信息结果
+message get_star_info_ret {
+    repeated star_info star = 1; //拥有的所有星球id
+    star_info_detail currentStar = 2;  //当前开发中的星球id
+}
+
+message get_star_shield {
+
+}
+
+message get_star_shield_ret {
+    shield faithShield = 1;
+    shield believerShield = 2;
+    shield buildingShield = 3;
+}
+
+message shield {
+    int32 value = 1; //当前次数
+    int32 limit = 2; //上限
+    int64 updateTime = 3; //上次的刷新时间
+}
+
+//解锁星球推送
+message open_star_push {
+    star_info_detail star = 1;  //当前解锁星球信息
+}
+
+message search_star_info{//探索星球信息 wjl 20170531
+    int32 uid = 1;//用户ID( 服务端专用 )
+}
+
+//探索星球信息 wjl 20170531
+message search_star_info_ret{
+    star_info_detail star = 1;
+}
+
+message get_star_info_detail{//获取星球详细信息 wjl 20170603
+    int32 uid = 1;//目标用户ID 需要查询的用户id
+    int32 starID = 2;//星球ID
+    int32 shieldType = 3; //需要需要防护罩类型
+    bool isConvert = 4;
+    int32 believerTotalLevel = 5;
+    int32 buildingTotalLevel = 6;
+}
+
+message get_star_record_info{//获取星球记录信息 wjl 20170531
+    int32 uid = 1;//用户ID( 服务端专用 )
+    repeated int32 StarID = 2;//原始星球ID 列表
+    repeated int32 UserID = 3;//占领星球的用户列表
+}
+
+message set_star_record_info{//设置星球记录信息 wjl 20170531
+    int32 recordType = 1;//记录类型 0x00 星球 0x01 用户
+    int32 recordID = 2;//记录ID
+}
+
+message del_star_record_info{//删除星球记录信息 wjl 20170605
+    int32 recordType = 1;//记录类型 0x00 星球 0x01 用户
+    int32 recordID = 2;//记录ID
+}
+
+message replace_star_record_info{//替换星球记录信息
+    int32 recordType = 1;//记录类型 0x00 星球 0x01 用户
+    int32 recordID = 2;//记录ID
+    int32 replaceRecordID = 3; //替换的记录ID
+}
+
+message move_star_record_info{//移动星球记录信息 wjl 20170607
+    int32 srcType = 1;//原类型
+    int32 srcID = 2;//原id
+    int32 destType = 3;//目标类型
+    int32 destID = 4;//目标ID
+}
+
+message occupy_star{//请求占领星球 wjl 20170605
+    int32 uid = 1;//用户ID( 服务端专用 )
+    int32 starID = 2;//星球ID
+}
+
+message get_help_repair_info {
+    int32 buildType = 1;
+}
+
+message get_help_repair_info_ret {
+    repeated help_repair_build_info helpRepairBuildInfo = 1;
+}
+
+message help_repair_build_info {
+    int32 buildingType = 1;
+    int64 repairTime = 2;
+    int64 brokenTime = 3;
+    int32 helpID = 4;
+}
+
+message help_repair_build {
+    int32 buildingType = 1;
+    int32 helperID = 2;
+}
+
+message help_repair_build_ret {
+    bool result = 1;
+    int32 buildingLevel = 2;
+    int32 starType = 3;
+}
+
+message get_current_group_items {
+
+}
+
+message get_current_group_items_ret {
+    repeated int32 itemIDs = 1;
+    int32 groupID = 2;
+}
+
+
+//message next_star {
+//    int32 uid = 1; //服务端用
+//}
+
+//message next_star_ret {
+//    star_info_detail star = 1;//下一个星球数据
+//    int32 lastStarType = 2; //上一个星球的类型
+//    int32 faith = 3; //建筑总收取的信仰
+//    repeated int32 items = 4; //收取的圣物
+//}
+
+//message random_star_info{//随机一个目标星球信息
+//    int32 uid = 1;
+//}
+
+
+message get_event_star_info {
+    int32 uid = 1; //目标uid
+}
+
+message get_event_star_info_ret {
+    star_info_detail starInfo = 1; //事件id
+}
+
+
+//分配一个用户的初始星球
+message alloc_new_star {
+    int32 uid = 1;
+    int32 starType = 2;
+}
+
+message alloc_new_star_ret {
+    repeated star_info star = 1; //拥有的所有星球id
+    star_info_detail currentStar = 2;//下一个星球数据
+    int32 lastStarType = 3; //上一个星球的类型
+    int32 faith = 4; //建筑总收取的信仰
+    repeated int32 items = 5; //收取的圣物
+    bool isFirst = 6;
+}
+
+//获取用户的当前开发星球信息
+message user_star_info {
+    int32 uid = 1;
+}
+
+message user_star_info_ret {
+    int32 currentStar = 1;   //当前开发中的星球id
+    star_info_detail star = 2;      //用户已经解锁的星球
+}
+
+
+
+message get_star_info_detail_ret{//获取星球详细信息 wjl 20170603
+    star_info_detail star = 1;
+    shield shield = 2; //防护罩信息
+}
+
+message get_star_info_complete_ret{//返回星球已完成数据 wjl 20170607
+    repeated star_info_detail star = 1;
+}
+
+message get_star_record_info_ret{//获取星球记录信息 wjl 20170531
+    repeated star_info_base stars_ori = 1;//原始星球基本信息
+    repeated star_info_base stars_user = 2;//占领星球基本信息
+}
+
+message set_star_record_info_ret{//设置星球记录信息 wjl 20170531
+    int32 recordType = 1;//记录类型 0x00 星球 0x01 用户
+    int32 recordID = 2;//记录ID
+}
+
+message del_star_record_info_ret{//删除星球记录信息 wjl 20170605
+    int32 recordType = 1;//记录类型 0x00 星球 0x01 用户
+    int32 recordID = 2;//记录ID
+}
+
+message replace_star_record_info_ret{//替换星球记录信息
+    int32 recordType = 1;//记录类型 0x00 星球 0x01 用户
+    int32 recordID = 2;//被替换的记录ID
+    int32 replaceRecordID = 3; //替换的记录ID
+
+}
+
+message move_star_record_info_ret{//移动星球记录信息 wjl 20170607
+    int32 srcType = 1;//原类型
+    int32 srcID = 2;//原id
+    int32 destType = 3;//目标类型
+    int32 destID = 4;//目标ID
+}
+
+message occupy_star_ret{//返回星球占领信息
+    int32 uid = 1;//用户ID( 服务端专用 )
+    star_info_detail starOld = 2;//星球数据( 旧 )
+    star_info_detail star = 3;//星球数据( 新 )
+}
+
+message add_civilization {
+    int32 civilizationValue = 1; //新增文明度
+}
+
+message draw_civilization_reward {
+    int32 uid = 1;
+    int32 starID = 2; //领取的星球id
+    int32 drawLevel = 3; //需要领取的奖励的对应文明度等级
+}
+
+message draw_civilization_reward_ret {
+    int32 starID = 1; //领取的星球id
+    int32 drawLevel = 2; //需要领取的奖励的对应文明度等级
+    int32 reward = 3; //领取到的砖石数量
+    int32 faith = 4;//领取到的信仰
+    int32 diamond = 5;//领取到的钻石
+    int32 gayPiont = 6;//领取到的圣物碎片
+    repeated string believer = 7;//领取到的信徒的ID
+    repeated int32 believerNum = 8;//领取到的信徒对应的数量
+}
+
+//message random_star_info_ret{//随机一个目标星球结果
+//   int32 uid = 1;//用户ID( 服务端专用 )
+//   star_info_detail star = 3;//星球数据
+//}
+
+message star_settle {
+}
+
+message star_settle_ret {
+    int32 rankNum = 1; //排名
+    int32 totalRank = 2; //总人数
+    int64 passTime = 3; // 星球通关时间
+}
+
+message star_flag_info {
+}
+
+message star_flag_info_ret {
+    repeated flag_info flags = 1;
+}
+
+message update_star_flag {
+    int32 flag = 1;
+    int32 value = 2;
+}
+
+message update_star_flag_ret {
+    flag_info flag = 1;  //更新结果
+}
+
+message update_all_star_flag {
+    int32 key = 1;
+    int32 value = 2;
+}
+
+message update_all_star_flag_ret {
+    bool result = 1;
+}
+
+message get_owners_by_condition {
+    int64 start = 1;
+    int64 end = 2;
+    int32 limit = 3;
+    int32 buildLv = 4;
+    int32 skip = 5;
+}
+
+message get_owners_by_condition_ret {
+    int32 count = 1;
+    repeated user_star_data userData = 2;
+}
+
+message user_star_data {
+    int32 uid = 1;
+    repeated believer_info believers = 2;
+    repeated Statistics starStatis = 3;
+    repeated Statistics UserStatis = 4;
+}

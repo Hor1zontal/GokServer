@@ -1,0 +1,15 @@
+{
+	"Enable":true,
+	"Database" : {
+		"Address":"127.0.0.1:27017",
+		"Name":"gok_center"
+	},
+	"RedisAddress":"127.0.0.1:6379",
+	"ZKServers": [
+		"127.0.0.1:2181"
+	],
+	"ZKName": "gok",
+	"HTTPAddress": ":8711",
+	"AppKey":"e434e639ff7247aea5622f339b383c",
+	"RPCPort": 11018
+}

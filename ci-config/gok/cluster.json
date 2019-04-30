@@ -1,0 +1,9 @@
+{
+	"ZKServers": [
+		"127.0.0.1:2181"
+	],
+	"ZKName": "gok",
+	"RedisAddress": "127.0.0.1:6379",
+	"LBS" : "polling",
+	"LBSComment" : "负载均衡策略，目前支持 polling(轮询)"
+}

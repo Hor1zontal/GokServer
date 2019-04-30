@@ -1,0 +1,549 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+
+//好友相关接口
+
+//好友信息
+message user_info {
+    int32  id = 1; //用户id
+    //string nickname = 2; //用户昵称
+    bool followEachOther = 3; //是否相互关注
+    int64 lastOnlineTime = 4; //上一次在线的时间戳,当前在线为0
+    int64 followTime = 5; //关注的时间
+
+    //string avatar = 6; //头像
+    user_detail_info data = 7; //用户详细数据
+
+    bool help = 10; //用户当前是否有圣物求助
+    int32 starType = 11; //用户当前星球类型
+}
+
+message friend_request_info {
+    int32  id = 1;             //好友申请的用户id
+    string nickname = 2;       //用户昵称
+    int64  addTime = 3;         //用户是否在线
+}
+
+//用户详细信息
+message user_detail_info {
+    int32 id = 1; //用户id
+    string desc = 2; //用户签名
+}
+
+//搜索用户
+message search_user {
+    int32 id = 1;   //用户id
+}
+
+message search_user_ret {
+    user_info user = 1; //搜索到的用户结果
+}
+
+//获取好友列表
+message get_friend_list {
+    int32 id = 1; //用户id
+}
+
+//获取好友列表结果
+message get_friend_list_ret {
+    repeated user_info friends = 1; //所有好友信息
+}
+
+//获取好友详细信息
+message get_friend_detail_info {
+    int32 id = 1;
+}
+
+//获取好友详细信息结果
+message get_friend_detail_info_ret {
+    user_detail_info detail = 1; //好友详细信息
+}
+
+//删除好友
+message delete_friend {
+    int32 id = 1; //用户id
+    int32 friendID = 2; //好友ID
+}
+
+//删除好友结果
+message delete_friend_ret {
+    bool result = 1;
+}
+
+
+//------------------------好友请求接口
+
+//获取好友申请列表
+message get_friend_request_list {
+    int32 id = 1; //用户id
+}
+
+//获取好友申请列表结果
+message get_friend_request_list_ret {
+    repeated friend_request_info friendRequests = 1;    //好友申请
+}
+
+//添加好友请求
+message add_friend_request {
+    int32 id = 1; //用户id
+    int32 requestID = 2; //好友ID
+}
+
+//添加好友请求结果
+message add_friend_request_ret {
+    bool result = 1;
+}
+
+//接受好友请求
+message accept_friend_request {
+    int32 id = 1;  //用户ID
+    int32 requestID = 2; //好友ID
+}
+
+message accept_friend_request_ret {
+    bool result = 1;
+}
+
+//拒绝好友请求
+message refuse_friend_request {
+    int32 id = 1;//用户ID
+    int32 requestID = 2;//好友ID
+}
+
+message refuse_friend_request_ret {
+    bool result = 1;
+}
+
+
+//---------------------------关注相关---------------------------
+
+//添加关注
+message follow {
+  int32 id = 1;       //用户id
+  int32 followerID = 2;  //要关注的用户id
+}
+
+message follow_ret {
+  user_info follower = 1;
+}
+
+//取消关注
+message unfollow {
+  int32 id = 1;       //用户id
+  int32 unfollowerID = 2;  //要取消关注的用户id
+}
+
+message unfollow_ret {
+  bool result = 1; //取消关注的结果
+}
+
+//获取关注列表
+message get_follower_list {
+    int32 id = 1;   //用户id
+}
+
+
+message get_follower_list_ret {
+  repeated user_info followers = 1;
+}
+
+//获取被关注的列表
+message get_following_list {
+    int32 id = 1;       //用户id
+}
+
+message get_following_list_ret {
+    repeated user_info followings = 1;
+}
+
+message follow_each {
+    int32 uid       = 1;
+    int32 followID  = 2;
+}
+
+message get_follow_state {
+    int32 uid1 = 1;
+    int32 uid2 = 2;
+}
+
+message get_follow_state_ret {
+    bool follower = 1; //是否是关注的人
+    bool following = 2; //是否是被关注的人
+}
+
+//---------------交易--------------
+
+message sale {
+    int32 id = 1; //出售的人
+    int32 itemID = 2;  //出售的物品
+    int64 publicTime = 3; //出售的时间
+//    string nickname = 4; //出售人的昵称
+//    string avatar = 6; //头像地址
+    string refID = 4; //关联id
+}
+
+//发布圣物
+message public_sale {
+    int32 id = 1;
+    int32 itemID = 2; //物品id
+}
+
+message public_sale_ret {
+    bool result = 1;
+    int64 publicTime = 2; //发布时间
+}
+
+//撤销发布圣物
+message cancel_sale {
+    int32 id = 1; //
+    int32 itemID = 2; //物品id
+}
+
+message cancel_sale_ret {
+    bool result = 1;
+}
+
+//购买圣物
+message buy_sale {
+  int32 id = 1;
+  int32 itemID = 2;
+}
+
+message buy_sale_ret {
+    bool result = 1;
+}
+
+//获取别人发布的圣物信息
+message get_sale_info {
+    int32 id = 1;
+}
+
+message get_sale_info_ret {
+    sale mySale = 1;
+    //repeated sale sales = 2; //获取满足的圣物挂物品
+    int64 publicTime = 3; //上次的发布时间
+}
+
+//---------------------------陌生人发现----------------------
+
+message Stranger {
+    int32 id = 1;
+    int32 type = 2; //1事件 2抢夺 3被关注 4被购买物品
+    int32 param = 3; //1事件类型id 2抢夺圣物id
+    int64 time = 4;
+    string nickname = 5; //昵称
+    string avatar = 6;
+}
+
+//获取最近的一组陌生人交互列表
+message get_stranger_list {
+
+}
+
+message get_stranger_list_ret {
+    repeated Stranger strangers = 1;
+}
+
+//------------------------圣物雷达功能-------------------
+
+message search_result {
+    string searchID = 1;
+    int32 id = 2;
+    string nickname = 3;
+    int32 itemID = 4;
+    string avatar = 5; //头像地址
+}
+
+message search_item {
+    int32 id = 1; //搜索的用户id
+    int32 starType = 2; //*星球类型
+    repeated int32 itemIDs = 3; //*搜索的物品id
+    repeated int32 existItems = 4; //用户已经拥有当前星球的圣物
+    bool cost = 5; //是否花费友情点购买
+}
+
+message search_item_ret {
+    repeated search_result strangers = 1; //满足的陌生人
+}
+
+//动态消息
+message NewsFeed {
+    string id = 1; //动态消息id
+    int32 relateID = 2; //关联动态消息的用户id
+    //string relateNickname = 3; //关联动态消息的用户昵称
+    //string relateAvatar = 4; //关联动态下次用户头像
+    int32 type = 5; //消息类型 1拒绝索取 2被抢夺 3通过索取 4物品被购买 5被抢夺信仰 6被损坏建筑 7抢信徒 8 圣物组合达成 11索取请求 12被索取请求 20分享获取圣物 21分享圣物组合  22 分享新信徒  23 分享任务
+    int64 time = 6; //创建时间
+    int32 param1 = 7; //动态消息参数1
+    int32 param2 = 8; //动态消息参数2
+    int32 param3 = 9; //动态消息参数3
+    //bool isRevenge = 10; //是否通过复仇的方式进行的交互消息
+    bool doneRevenge = 11; //是否完成复仇
+
+    repeated string ext = 12; //动态消息参数3
+    bool read = 13; //是否读过
+}
+
+message NewsFeedDetail {
+    repeated believer_info believerInfo = 1; //抢夺的信徒数量
+    repeated attack_statistics attackStatistics = 2; //摧毁的建筑次数
+    int32 faith = 3; //抢夺的信徒总数量
+    int32 itemNum = 4; //抢夺的圣物数量
+}
+
+message attack_statistics {
+    int32 level = 1;
+    int32 num  = 2;
+}
+
+message read_newsfeed {
+    string id = 1;
+}
+
+message read_newsfeed_ret {
+    bool result = 1;
+}
+
+message get_newsfeed_detail {
+    string id = 1;
+}
+
+message get_newsfeed_detail_ret {
+    NewsFeedDetail self = 1; //自己的数据
+    NewsFeedDetail other = 2; //对手的数据
+}
+
+//获取动态信息
+message get_newsfeed_list {
+    int32 id = 1; //*用户id
+}
+
+message get_newsfeed_list_ret {
+    repeated NewsFeed newsFeeds = 1;
+}
+
+message get_offline_newsfeed_list {
+    int32 id = 1; //*用户id
+}
+
+message get_offline_newsfeed_list_ret {
+    repeated NewsFeed newsFeeds = 1;
+}
+
+//获取用户索取相关信息
+message get_deal_list {
+    int32 id = 1; //*用户id
+}
+
+message get_deal_list_ret {
+    repeated NewsFeed deals = 1;
+}
+
+//索取圣物
+message request_item {
+    string searchID = 1;
+}
+
+message request_item_ret {
+    bool result = 1;
+    string dealID = 2;
+}
+
+//抢夺圣物
+message loot_item {
+    string searchID = 1;
+    int32 lootID = 2; //*被掠夺的用户id
+    int32 buildingID = 3; //抢夺的建筑id
+    int32 itemID = 4; //*掠夺的圣物
+    int32 buildingLevel = 5; //建筑总等级
+}
+
+message loot_item_ret {
+    bool result = 1; //抢夺成功与否
+    int32 building = 2; //被抢夺的建筑id
+}
+
+//抢夺信徒
+message loot_star_believer {
+    int32 attackID = 1; //抢夺的用户id
+    int32 destID = 2; //被掠夺的用户id
+    repeated string believerID = 3; //被掠夺的信徒
+}
+
+message loot_star_believer_ret {
+    repeated string believerID = 1; //被掠夺的信徒id
+    bool shield = 2; //是否防护罩
+    bool isMax = 3;
+}
+
+//接收玩家的物品索取
+message accept_item_request {
+    string dealID = 1;
+}
+
+message accept_item_request_ret {
+    bool result = 1;
+}
+
+//拒绝玩家的物品索取
+message reject_item_request {
+    string dealID = 1;
+}
+
+message reject_item_request_ret {
+    bool result = 1;
+}
+
+//订单过期，客户端通知
+message item_request_overdue {
+    string dealID = 1;
+}
+
+message item_request_overdue_ret {
+    bool result = 1;
+}
+
+
+//发送动态消息给其他用户
+//message send_newsfeed {
+//    int32 id = 1; //*发送的用户id
+//    NewsFeed
+//}
+//----------------------------推送消息--------------------------------
+
+//关注推送
+message follow_push {
+    int32 followID = 1;   //关注你的用户id推送
+}
+
+//取消关注推送
+//message unfollow_push {
+//  int32 id = 1;   //对你取消关注的用户id
+//}
+
+//拒绝好友推送
+message refuse_friend_push {
+    user_info friend = 1;
+}
+
+//删除好友推送
+message delete_friend_push {
+    user_info friend = 1;
+}
+
+//---------------------------模块rpc
+
+//发布销售物品
+message add_sale {
+    int32 id = 1;
+    int32 itemID = 2; //物品id
+}
+
+message add_sale_ret {
+    sale sale = 1;
+}
+
+//删除销售物品
+message remove_sale {
+    int32 id = 1; //
+    int32 itemID = 2; //物品id
+}
+
+message remove_sale_ret {
+    bool result = 1;
+}
+
+message get_sale {
+    int32 id = 1;
+}
+
+message get_sale_ret {
+    sale sale = 1;
+}
+
+message get_sales {
+    repeated int32 id = 1;
+}
+
+message get_sales_ret {
+    repeated sale sales = 1;
+}
+
+message global_message {
+    sale sale = 1; //出售物品communi
+    NewsFeed newsFeed = 2; //动态消息
+}
+
+message lamp_message {
+    string data = 1;
+}
+
+message notice_message {
+    int32 noticeID = 1;
+}
+
+message public_share {
+    int32 type = 1; //分享类型  20分享获取圣物 21分享圣物组合  22 分享新信徒  23 分享任务
+    string refID = 2; //  20-圣物id  21-圣物组合id 22-信徒id 23-任务id
+}
+
+message public_share_ret {
+    bool result = 1; //分享结果
+}
+
+
+message public_wechat_share {
+    int32 type = 1; // 1 -- 求助 2 -- 炫耀
+    int32 refType = 2; // 1 -- 信徒 2 -- 信仰 3 -- 法力  4 -- 修理建筑（只跟求助有关）
+    int32 refNum = 3;
+}
+
+message public_wechat_share_ret {
+    Reward reward = 1; //奖励的东西
+    int32 shareCount = 2; //剩余分享次数
+    int32 buildType = 3; //分享成功的求助修理建筑类型
+}
+
+message draw_wechat_share_reward {
+    int32 newsfeedType = 1;
+}
+
+message draw_wechat_share_reward_ret {
+    Reward reward = 1;
+    int32 shareCount = 2; //剩余领取分享次数
+}
+
+message get_wechat_share_time {
+
+}
+
+message get_wechat_share_time_ret {
+    int64 nextDraw = 1; //下次分享的时间
+}
+
+message watch_ad_success {
+    int32 type = 1; // 1--转盘领法力 2 -- 领圣物碎片
+}
+
+message watch_ad_success_ret {
+    Reward reward = 1;
+}
+
+message guide_revenge_ret {
+    NewsFeed newsFeed = 1; //
+}
+
+
+message get_global_message_ret {
+    repeated global_message message = 1;
+}
+
+
+message draw_day_gift {
+    int32 uid =  1;
+}
+
+message draw_day_gift_ret {
+    Reward reward = 1;
+}

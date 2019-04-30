@@ -1,0 +1,197 @@
+package exception
+
+type GameCode int32
+
+const (
+	NONE GameCode = iota  //value
+	STAR_NOTFOUND 		//1星球未找到
+	STAR_BUILDING_NOTFOUND  //2星球建筑未找到
+	ILL_BUILD_CONDITION     //3建造条件不足，前置建筑没有建造
+	BUILDING_MAXLEVEL       //4建筑等级已达最大值
+	FAITH_NOT_ENOUGH        //5信仰值不足
+	EVENT_NOT_FOUND				//6事件未找到
+	EVENT_TARGET_ALREADY_SELECT		//7事件目标已选择
+	EVENT_TARGET_NOT_SELECT			//8事件目标未选择
+	EVENT_ALREADY_RUNNING			//9事件已经在运行
+	JOIN_MEMBER_LIMIT			    //10招募玩家已满
+	INVALID_PUBLIC_STATE			//11当前阶段不能发布招募
+	CANNOT_PUBLIC			        //12不能重复复发布招募或投票
+	INVALID_EVENT_AUTHORITY			//13用户没有访问事件的权限
+	JOIN_REPEATED 				//14不可重复参与
+	POWER_NOT_ENOUGH			//15法力值不足
+	STAR_ALREADY_OWN 			//16星球已经拥有
+	INVALID_PARAM			    //17无效的请求参数
+	INVALID_REQUEST			    //18无效的请求
+
+	TASK_NOT_FOUND	= 20			//20任务未找到
+	TASK_NOT_DONE	= 21			//21任务未完成不能提交
+	TASK_ALREADY_ACCEPT =22			//22任务已经被接收
+	TASK_BASE_NOTFOUND = 23			//23任务基础配置信息未找到
+	TASK_TRIGGER_NOTFOUND = 24	        //24事件关联任务未找到
+	TASK_ALREAD_HAVE = 25			//25有未处理完的任务
+
+	INVALID_FLAG_AUTHORITY = 26			//无效的标识修改权限
+
+	USER_NOT_AUTH = 27 //用户被封号
+	USERNAME_EXISTS = 28 //用户名已存在
+	USER_INVALID_TOKEN = 29 //无效的登录TOKEN
+	USER_NOTFOUND = 30	//30用户未找到
+
+	REPEATE_ADD_FRIEND = 31	//31重复添加好友
+	CANNOT_ADD_MYSELF = 32	//32不能加自己
+	FRIEND_NOFOUND = 33    //33要删除的好友未找到
+
+	LOGIN_REPEAT = 34 //重复登录
+
+	FRIEND_REQUEST_NOFOUND = 40    //好友请求未找到
+
+	DIAMOND_NOT_ENOUGH = 50  //50钻石不足
+
+	CANNOT_FOLLOW_MYSELF = 60 //不能关注自己
+	REPEATE_FOLLOW = 61	//重复关注
+	MAX_FOLLOW = 62	//关注数已到上限
+
+	NEWSFEED_NOT_FOUND = 65 //消息未找到
+	NEWSFEED_TIMEOUT = 66 //消息已过期
+	NEWSFEED_HAS_READ = 57 //消息已读
+
+	SHARE_COUNT_NOT_ENOUGH = 70 //分享次数不足
+
+	CIVILIZATION_LEVEL_NOT_ENOUGH = 71 //文明度等级不足
+	CIVILIZATION_REWARD_ALREADY_DRAW = 72 //文明度奖励已领取
+	CIVILIZATION_REWARD_NOT_FOUND = 73 //文明度奖励配置未找到
+	
+	STAR_BUILDING_LEVEL_NOT_ENOUGH = 91 //建筑等级不足
+
+	STAR_RECORD_FAILED_NOTFOUND = 98 //星球收藏记录未找到
+	STAR_RECORD_FAILED_MAX = 99 //星球收藏已达最大值
+	STAR_RECORD_FAILED_EXIST = 100 //星球收藏记录已存在
+	STAR_OCCUPY_FAILED = 101 //占领星球失败
+	STAR_RECORD_MOVE_FAILED = 102 //星球记录移动失败
+	STAR_SEARCH_FAILED = 103 //搜索星球失败
+	STAR_ATK_BUILD_FAILED = 105 //请求进攻建筑物失败
+	STAR_REPAIR_BUILD_FAILED = 106 //请求维修建筑失败
+	STAR_UPDATE_BUILD_END_FAILED = 107 //请求结束升级建筑物失败
+	STAR_UPDATE_BUILD_SP_FAILED = 108  //请求加速升级建筑物失败
+	STAR_ACC_REPAIR_BELIEVER_LIMIT = 109 //请求加速修理的信徒数量已达上限
+	STAR_ACC_UPGRADE_BELIEVER_LIMIT = 110 //请求加速建造的信徒数量已达上限
+	STAR_ACC_INVALID_BELIEVER = 111 //该信徒不能加速升级此建筑
+	STAR_CANNOT_ATK_SELF = 112 //不能攻打自己
+
+	STAR_BUILDING_IS_BROKEN = 113 //建筑在损坏状态
+	STAR_BUILDING_IS_REPAIRE = 114 //建筑在修理状态
+	STAR_BUILDING_IS_NOT_UPDATE = 115 //建筑不在升级状态
+
+	STAR_BELIEVER_NOT_ENOUGH = 120 //信徒不足
+	STAR_BELIEVER_LIMIT = 121 //信徒数量已达上限
+	STAR_BELIEVER_UPGRADE_INVALID = 122 //无效的信徒升级条件
+	STAR_BUILDING_FAITH_CANNOTDRAW = 125 //星球信仰值无法领取
+	MANUAL_ADD_BELIEVER_ERROR = 126 //手动添加信徒失败
+	STAR_OTHER_BUILDING_EXIST_STATE = 127 //其他建筑存在同样的处理状态
+	STAR_BUILDING_CONFIG_NOT_FOUND = 128 //星球建筑配置未找到
+	STAR_BUILDING_CANCEL_UPGRADE_FAILED = 129 //取消升级失败
+	STAR_BUILDING_CANCEL_REPAIR_FAILED = 130 //取消维修失败
+
+	SHOP_BUY_ERROR = 150 //商店购买失败
+
+	MAIL_NOT_FOUND = 160 //
+
+
+	GOODS_NOT_FOUND = 180 //货架物品未找到
+	GOODS_NOT_ENOUGH = 181 //货架物品不足
+	GOODS_ALREADY_EXIST = 182 //货架物品已存在
+
+	ITEM_BASE_NOT_FOUND = 199//物品配置表未找到
+	ITEM_NOT_ENOUGH       = 200 //物品不足
+	ITEM_NOT_FOUND        = 201 //物品未找到
+	ITEM_NOT_MATCH_GROOVE = 202 //物品未匹配槽点
+	GROOVE_NOT_FOUND      = 203 //槽点未找到
+	GROOVE_ITEM_EXISTS    = 204 //槽点物品已经存在
+	GROOVE_ALREADY_EFFECT = 205 //槽已经生效
+
+
+	ITEM_GOURP_BASE_NOT_FOUND = 210 //圣物组合配置表未找到
+	ITEM_GOURP_NOT_FINISH = 211 //图鉴未拼装完成
+	ITEM_GOURP_REWARD_REPEAT = 212 //图鉴奖励重复领取
+	INVALID_ITEM_GOURP_ACTIVE = 213 //无效的图鉴激活条件
+	ITEM_GROUP_NOT_EXIST = 214 //
+
+	ITEM_GROUP_IS_DONE = 216 //组合已合成
+
+	CAN_NOT_BUY_SELF = 228 //不能购买自己的圣物
+	GAYPOINT_NOT_ENOUGH = 229   //友情点不足
+	ITEM_PUBLIC_REPEAT = 230 //物品重复发布
+	PUBLIC_ITEM_NOTFOUND = 231 //发布的物品未找到
+	ITEM_REQUEST_OVERDUE = 232 //圣物索取请求已经过期
+	ITEM_CAN_NOUT_PUBLIC = 233 //圣物还未到发布CD
+
+
+	SEARCH_COUNT_LIMIT = 235 //搜索次数不够
+	SEARCH_RESULT_INVALID = 236 //操作的搜索目标未找到
+	SEARCH_BUILDING_MAXLEVEL = 237//选择目标的建筑满级
+
+	UNEXPECT_RANK_TYPE = 310 //无效的排行榜标识
+
+	EVENT_CONFIG_EXCEPTION = 500   //事件配置异常
+	EVENT_CONFIG_INVALID_MODULE = 501   //事件配置,无效的模块
+	EVENT_MODULE_NOTFOUND = 502   //模块未找到
+	EVENT_INVALID_TARGET = 503   //无效的进攻目标
+	EVENT_VOTE_NOTPUBLIC = 504    //事件投票未发布，还不能投票
+	EVENT_VOTE_INVALIDOPTION = 505  //无效的投票选项
+	EVENT_VOTE_NOTFINISH = 506	//投票还未结束
+	EVENT_VOTE_FINISH = 507		//投票已经结束
+
+	EVENT_CAPTURE_LIMIT = 510	//抓捕次数已达上限
+	EVENT_CAPTURE_BELIEVER_NOT_FOUND = 511  //抓捕信徒不存在
+
+	DIAL_NOT_FOUND = 512 //转盘信息未找到
+	GAME_BASE_NOT_FOUND = 513 //游戏配置未找到
+
+	STAR_SELECT_NOT_FOUND       = 514 //选择的星球未找到
+	SELECT_STAR_REPEAT          = 515 // 重复选择星球
+	EVENT_FILTER_NOT_FOUND      = 516 //随机事件配置未找到
+	NOT_ABLE_WECHAT_SHARE       = 517 //未到时间不能分享
+	HELP_REPAIR_BUILD_NOT_FOUND = 518 //求助分享建筑不存在
+
+	MALL_ITEM_ID_NOT_FOUND		= 520 //商城圣物id未找到
+	MALL_ITEM_TIMES_NOT_ENOUGH	= 521 //购买该商城圣物的次数不足
+
+
+	ITEM_HELP_PUBLIC_REPEAT = 550 //重复发布圣物求组
+	ITEM_HELP_NOT_FOUND = 551 //圣物求助未找到
+	ITEM_HELP_LIMIT = 552 //协助次数已达上限
+	ITEM_HELP_LOOT_LIMIT = 553 //偷取成功次数已达上限
+	ITEM_HELP_ITEM_NOTFOUND = 554 //偷取的圣物找不到 被别人先走一步~
+	ITEM_HELP_ITEM_NOT_ENOUGH = 555 //物品不足
+
+	ITEM_HELP_LOOT_ALREADY_HELP = 556 //已经帮助过就不能再偷取
+	ITEM_HELP_HELP_ALREADY_LOOT = 557 //已经偷取过就不能再帮助
+
+	CARD_REWARD_BASE_NOTFOUND = 580 //卡牌配置表未找到
+	DIAL_GUIDE_NOT_FOUND = 581 //引导转盘未找到
+	FLAG_UNLOCK_NOT_FOUND = 582 //标识解锁配置表未找到
+	DIAL_IS_NOT_UNLOCK = 583 //转盘未解锁
+	DIAL_LIMIT_NOT_FOUND = 584 //限制转盘信息未找到
+	ROBOT_IS_NOT_EXIST = 585 //机器人不存在
+	CAN_NOT_REVENGE = 586
+
+	SERVICE_INTERNAL_ERR = 998 //服务器内部错误
+	SERVICE_NO_INVALID = 999 //请求参数错误
+	SERVICE_INVALID = 1000	//服务不可用
+	USER_SESSION_TIMEOUT = 1001 //用户会话过期
+	DATABASE_EXCEPTION = 1002 //数据库操作异常
+	USER_FORBIDDEN = 1004 //用户被封号
+	SERVER_CLOSE = 1005 //服务器未开放
+	SERVER_CLOSE_NEW = 1006 //服务器停止新账号注册
+	SERVER_MAINTAIN = 1007 //服务器维护中
+	GAMESERVER_NOT_FOUND = 1010 //没有可用的游戏服务器
+	CLIENT_NOT_MATAH = 1011 //客户端版本不匹配
+)
+
+func GameException(this GameCode) {
+	panic(this)
+}
+
+func GameException1(err string) {
+	panic(err)
+}

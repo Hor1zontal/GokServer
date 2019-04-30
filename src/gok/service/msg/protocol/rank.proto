@@ -1,0 +1,30 @@
+syntax = "proto3";
+package protocol;
+//角色相关接口
+//import "aacommon.proto";
+
+message get_rank_info {
+    int32 uid = 1;
+    int32 type = 2; //排行榜类型 1 买卖次数 2信仰抢夺次数 3建筑破坏次数 4信徒抢夺次数
+}
+
+message get_rank_info_ret {
+    repeated Rank topRank = 1;  //排行榜数据
+    Rank myRank = 2; //当前玩家的数据
+}
+
+//排行榜数据结构
+message Rank {
+    int32 uid = 1; //用户id
+    int32 rankNum = 2; //排名编号
+//    string nickname = 3; //玩家名字
+//    string avatar = 4; //头像地址
+    int64 value = 5; //相应资源的值
+    //int32 delta = 4; //相比上次的排名变化
+    //bool isNew = 5; //是否是新上榜
+}
+
+message score_push {
+    int32 type = 1; //排行榜类型 1 买卖次数 2信仰抢夺次数 3建筑破坏次数 4信徒抢夺次数
+    int64 value = 2;//变更值
+}

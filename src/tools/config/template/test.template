@@ -1,0 +1,38 @@
+<enum>
+	// [${table_alias}:${field_alias}]	
+	tb.${enum_name} = ${enum_value}; //${enum_alias}
+</enum>
+
+<table>
+	// [${table_alias}]	
+	${table_fixname} = {
+		<field>
+		${field_fixname}:"${field_name}",   //${field_alias}</field>
+	}
+</table>
+
+
+
+
+
+
+<table><table>
+<enum></enum>
+<field></field>
+
+${table_alias}  //表格别名     兵种表
+${table_name}   //表格名       army
+${table_fixname}   //表格名       Army
+${table_data}  //表格的json数据
+
+${field_alias}  //字段别名     字段1
+${field_name}   //字段名      field1  
+${field_fixname}   //字段名      Field1
+${field_fixname}   //字段名      Field1  
+
+${enum_name}  //枚举名
+${enum_value} //枚举值
+${enum_alias} //枚举别名
+
+
+

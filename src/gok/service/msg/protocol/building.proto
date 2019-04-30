@@ -1,0 +1,302 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+
+//升级和维修建筑初始消耗一个5级信徒
+//每消耗一个5级信徒可以加速升级或维修XX秒（gamebase字段expediteTime)
+//每个建筑每次升级加速或维修加速最多消耗信徒数量X人（buildingsbase里的字段ExpediteUpgradeBelieverLimit和ExpediteRepairBelieverLimit），每次加速只消耗一人，时间溢出则直接完成
+
+
+//建筑销毁
+message building_reset {
+    repeated building_info building = 1; //建筑
+    repeated int32 itemID = 2; //返还的物品
+    int32 powerLimit = 3; //变更的法力值上限
+}
+
+//建造建筑
+message build_star_building {
+    int32 starID = 1; //建造建筑所属的星球id
+    int32 buildingType = 2; //建造的建筑id
+    int32 level = 3; //建造的建筑等级
+    repeated string believerId = 4; //消耗的信徒Id
+    int32 faith = 5; //用户的信仰值
+    bool guide = 6; //是否引导建造
+}
+
+//建造建筑结果
+message build_star_building_ret {
+    bool result = 1; //建造结果
+    int64 updateTime = 2; //建造完成的时间戳
+    building_info builidng = 3; //升级后要给新的建筑信息
+    int32 powerLimit = 4; //升级后会更新法力值上限
+    int32 cost = 5; //用户扣除的信仰值
+    bool done = 6;
+    civilization_info civilizationInfo = 7; //变更后的文明值信息
+    int32 itemID = 8;
+}
+
+//加速修理星球建筑
+message acc_repair_star_build {
+    int32 uid = 1; //发起者用户ID( 服务端专用 )
+    int32 buildingType = 2; //目标建筑ID
+    repeated string believerId = 3; //消耗的信徒Id
+}
+
+
+message acc_repair_star_build_ret {
+    int32 uid = 1; //用户ID( 服务端专用 )
+    int32 buildingType = 2; //建筑物ID
+    int64 repairTime = 3; //更新后维修完成的时间戳
+    int32 believerNum = 4; //已经消耗的信徒数量
+    bool  done = 5; //是否修理成功  修理成功repairTime 为0
+    int32 buildingLevel = 6; //建筑等级
+    civilization_info civilizationInfo = 7; //变更后的文明值信息
+    int32 itemID = 8;
+}
+
+////重铸建筑槽颜色
+//message reset_building_groove {
+//    int32 uid = 1;
+//    int32 buildingType = 2; //建筑ID
+//    repeated int32 lockGroove = 3; //锁定的槽下标
+//}
+//
+////重铸建筑槽颜色
+//message reset_building_groove_ret {
+//    int32 buildingType = 1; //建筑ID
+//    repeated item_groove itemGroove = 2; //重铸后的槽数据
+//    repeated int32 itemID = 3; //重铸后返回背包的物品
+//}
+
+
+//请求开始维护星球建筑
+message repair_star_build {
+    int32 uid = 1; //发起者用户ID( 服务端专用 )
+    int32 faith = 2; //用户需要消耗的信仰值( 服务端专用 )
+    int32 buildingType = 3; //目标建筑物ID
+    repeated string believerId = 4; //消耗的信徒Id
+}
+
+message repair_star_build_ret {
+    int32 uid = 1; //发起者用户ID( 服务端专用 )
+    int32 cost = 2; //用户需要消耗的信仰值( 服务端专用 )
+    int32 buildingType = 3; //目标建筑物ID
+    int64 repairTime = 4; //建筑物的维修时间
+    bool done = 5;
+    int32 buildingLevel = 6; //建筑等级
+    civilization_info civilizationInfo = 7; //变更后的文明值信息
+    int32 itemID = 8;
+}
+
+//请求星球建筑修理完毕
+message repair_star_build_end {
+    int32 uid = 1; //发起者用户ID( 服务端专用 )
+    int32 buildingType = 2; //目标建筑物ID
+}
+
+
+//请求星球建筑修理完毕
+message repair_star_build_end_ret {
+    bool done = 1; //是否修理成功
+    int64 repairTime = 2; //建筑物的维修时间
+    int32 buildingLevel = 6; //建筑等级
+    civilization_info civilizationInfo = 7; //变更后的文明值信息
+    int32 itemID = 8;
+
+}
+
+//请求升级星球建筑结束
+message update_star_build_end {
+    int32 uid = 1; //发起者用户ID( 服务端专用 )
+    int32 buildingType = 2; //建筑id
+}
+
+//请求升级星球建筑结束
+message update_star_build_end_ret {
+    int32 uid = 1; //发起者用户ID( 服务端专用 )
+    int32 buildingType = 2; //建筑物ID
+    int32 level = 3; //建筑物等级
+    int64 updateTime = 4; //建筑物的升级时间
+    int32 powerLimit = 5; //更新的法力值上限
+    //repeated item_groove itemGroove = 6; //有更新的物品槽
+    bool done = 7; //是否升级完毕
+    civilization_info civilizationInfo = 8; //变更后的文明值信息
+    int32 itemID = 9;
+    int32 powerReward = 10;
+}
+
+//请求升级星球建筑加速
+message acc_update_star_build {
+    int32 uid = 1; //发起者用户ID( 服务端专用 )
+    int32 buildingType = 2; //建筑id
+    repeated string believerId = 3; //消耗的信徒Id
+    bool guide = 4; //是否引导加速
+}
+
+//请求升级星球建筑加速
+message acc_update_star_build_ret {
+    int32 uid = 1; //用户ID( 服务端专用 )
+    int32 buildingType = 2; //建筑ID
+    int32 level = 3; //建筑等级
+    int32 powerLimit = 4; //更新的法力值上限
+    int64 updateTime = 5; //更新后建造完成的时间戳
+    int32 believerNum = 6; //已经消耗的信徒数量
+    //repeated item_groove itemGroove = 7; //有更新的物品槽
+    bool done = 8; //升级成功 升级成功后upateTime为0
+    civilization_info civilizationInfo = 9; //变更后的文明值信息
+    int32 itemID = 10;
+}
+
+//请求取消星球建筑升级
+message cancel_upgrade_star_build {
+    int32 buildingType = 1; //建筑类型
+}
+
+message cancel_upgrade_star_build_ret {
+    int32 backFaith = 1;
+    int32 buildingType = 2; //
+    int32 buildingLevel = 3; //建筑等级
+    int64 updateTime = 4; //更新后建造完成的时间戳
+}
+
+//请求取消星球建筑修理
+message cancel_repair_star_build {
+    int32 buildingType = 1; //建筑id
+}
+
+message cancel_repair_star_build_ret {
+    int32 backFaith = 1;
+    int32 buildingType = 2; //
+    int32 buildingLevel = 3; //建筑等级
+    int64 repairTime = 4; //更新后维修完成的时间戳
+    int64 brokenTime = 5; //更新后损毁的时间戳
+}
+
+//星球建筑信息变更推送
+message building_info_push {
+    int32 uid = 1;
+    int32 starID = 2; //星球id
+    int32 type = 3; //星球类型
+    repeated building_info building = 4; //
+}
+
+//每个建筑每XX分钟(buildingsbase表UpdateFaithTime字段)会增加信仰值XX（buildingsbase表UpdateFaithNum字段）,这些信仰值存储在该建筑里，达到存储上限（buildingsbase表FaithLimit字段）则不再增长 玩家下线但是没有达到存储上限依旧会增长
+//领取信仰值：先判断信仰值是否超过可领取值（buildingsbase表ReceiveFaithLimit字段），超过则将单个建筑的存储信仰值清空并加到当前用户信仰值里
+//建筑升级在升级、损毁和维修状态时不增长信仰值，用户也不能领取，但原本积累的信仰值不会消失，建筑回到正常状态后在积累的基础上继续增长信仰值
+//圣物功能：建筑可放入圣物（道具），每放入一个圣物按比率增加每次增长的信仰值,具体计算为当前值*（1+xx（配表））
+
+//获取星球建筑当前存储的信仰值
+message get_building_faith {
+    int32 uid = 1; //用户ID
+    int32 buildingType = 2; //建筑ID
+}
+
+//获取星球建筑当前存储的信仰值
+message get_building_faith_ret {
+    int32 uid = 1; //用户ID
+    repeated building_faith buildingsFaith = 2;
+}
+
+//领取星球建筑当前存储的信仰值
+message receive_building_faith {
+    int32 uid = 1; //用户ID
+    int32 buildingType = 2; //建筑ID
+}
+
+//领取星球建筑当前存储的信仰值
+message receive_building_faith_ret {
+    bool result = 1;
+    int32 buildingFaith = 2; //领取的信仰值
+    int64 faithUpdateTime = 4; //上次的信仰结算时间
+}
+
+////激活图鉴
+//message active_group {
+//    int32 groupID = 1;
+//    repeated int32 itemID = 2;
+//}
+//
+//message active_group_ret {
+//    int32 groupID = 1;  //成功的组合id
+//}
+
+//激活图鉴物品
+message active_group_item {
+    int32 groupID = 1;
+    repeated int32 itemID = 2;
+}
+
+message active_group_item_ret {
+    int32 groupID = 1;  //成功的组合id
+}
+
+//message acc_building_groove_effect {
+//    int32 uid = 1;
+//    repeated string believer = 2; //使用的信徒id
+//    int32 buildingType = 3; //建筑ID
+//    int32 itemGroove = 4; //放入的槽点下标
+//}
+//
+//message acc_building_groove_effect_ret {
+//    bool effect = 1; //是否成效
+//    int64 effectTimestamp = 2; //放入的槽的生效时间
+//}
+
+//将圣物放入建筑
+//message put_item_to_building {
+//    int32 uid = 1; //用户ID
+//    int32 buildingType = 2; //建筑ID
+//    repeated int32 itemGroove = 3; //放入的槽点下标
+//    repeated int32 itemID = 4; //放入的物品id
+//
+//    repeated int32 takeoutItem = 5; //建筑槽里面取出的物品
+//}
+
+//将圣物放入建筑
+//message put_item_to_building_ret {
+//    bool result = 1; //放入结果
+//    int32 buildingType = 2; //建筑ID
+//    repeated int32 bagTakeinItems = 3; //放入背包的圣物
+//    repeated int32 bagTakeoutItems = 4; //背包中取出的圣物
+//    repeated item_groove itemGroove = 5; //槽的当前信息
+//}
+
+//message update_groove_effect {
+//    int32 uid = 1; //用户ID
+//    int32 buildingType = 2; //建筑ID
+//    int32 itemGroove = 3; //槽下标
+//}
+//
+//message update_groove_effect_ret {
+//    int64 effectTimestamp = 1;
+//    bool effect = 2;
+//}
+
+//message active_building_group {
+//    int32 uid = 1; //用户ID
+//    //int32 buildingType = 2; //建筑ID
+//    active_group activeGroup = 3; //激活图鉴
+//    //active_group_item activeGroupItem = 4; //激活图鉴物品
+//}
+//
+//message active_building_group_ret {
+//    repeated int32 buildingItems = 1; //*放入后建筑的物品
+//    active_group_ret activeGroupRet = 2; //激活的组id
+//    //active_group_item_ret activeGroupItemRet = 3; //激活的
+//    civilization_info civilizationInfo = 4; //激活奖励的文明度
+//}
+
+//将圣物从建筑里拿出
+//message remove_item_from_building {
+//    int32 uid = 1; //用户ID
+//    int32 buildingType = 2; //建筑ID
+//    int32 itemGroove = 3; //移除的槽点下标
+//}
+
+//将圣物从建筑里拿出
+//message remove_item_from_building_ret {
+//    int32 buildingType = 1; //建筑ID
+//    int32 itemID = 2; //取出的物品id
+//    bool result = 3; //取出的结果
+//}

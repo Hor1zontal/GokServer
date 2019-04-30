@@ -1,0 +1,755 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+import "bblogin.proto";
+import "role.proto";
+import "building.proto";
+import "star.proto";
+import "shop.proto";
+import "event.proto";
+import "eventtask.proto";
+import "community.proto";
+import "moments.proto";
+import "believer.proto";
+import "bag.proto";
+import "mail.proto";
+import "rank.proto";
+import "trade.proto";
+import "statistics.proto";
+import "search.proto";
+import "internal.proto";
+import "log_model.proto";
+
+//C2GS为客户端发给服务端的通讯协议
+//GS2C为服务端发给客户端的通讯协议
+message C2GS {
+    int32 session = 1;     //消息序号
+    repeated int32 sequence = 2;    //消息序列
+    int32 param = 3; //是否用户会话处理的消息
+    heart_beat heartBeat = 4;
+    bool getServerTime = 5;
+
+
+    //-----------------账号模块接口---------------
+    login_register loginRegister = 6;
+    login_login loginLogin = 7;
+
+    gen_order genOrder = 8; //生成订单
+
+
+    //-----------------用户模块接口---------------
+    bool offline = 10; //是否离线消息
+    login_server loginServer = 11;
+
+    create_role createRole = 12;   //创建用户
+    join_game joinGame = 13; //进入游戏
+    leave_game leaveGame = 14; //离开游戏
+
+    get_avatar getAvatar = 15; //获取头像信息
+    string changeDesc = 16;// 修改个性签名
+    bool getRoleInfo = 17; //获取用户概要信息
+
+    get_stars_select getStarsSelect = 18; //获取可选择的星球
+    select_star selectStar = 19; //选择星球
+    get_star_info getStarInfo = 20; //获取星球信息
+    build_star_building buildStarBuilding = 21; //建造星球建筑
+    role_display_info roleDisplayInfo = 22; //获取显示标识信息
+    update_display updateDisplay = 23; //更新显示标识
+
+    buy_shop_item buyShopItem = 25; //购买商场道具
+    role_flag_info roleFlagInfo = 26; //获取用户标识
+    update_flag updateFlag = 27; //更新用户标识
+    update_power updatePower = 28; //更新法力值
+
+    //--------------------事件接口------------------------------
+    into_event intoEvent = 30; //进入事件
+    public_event publicEvent = 31; //发布招募事件
+    accept_assist_event acceptAssistEvent = 32; //加入事件
+    remove_event removeEvent = 33; //删除事件
+
+
+    select_event_target selectEventTarget = 34; //选择事件目标
+    leave_event leaveEvent = 35; //离开事件
+    assist_event_request_list assistEventRequestList = 36; //获取事件协助请求列表
+    update_event_field updateEventField = 37;  //更新事件扩展字段
+    reject_assist_event rejectAssistEvent = 38; //拒绝事件协助
+    get_event getEvent = 39; //获取事件信息
+    random_target randomTarget = 40; //随机获取事件目标
+
+    open_card openCard = 41; //选卡片
+
+    get_event_module getEventModule = 45; //获取事件模块信息
+    done_event_step doneEventStep = 46; //完成事件步骤
+
+    //select_area selectArea = 47;//选择操作区域
+
+    public_vote publicVote = 50; //发布投票
+    add_event_vote addEventVote = 51; //给事件投票
+
+    //capture_believer captureBeliever = 55; //抓捕信徒请求
+
+    save_data saveData = 60;  //小游戏数据更新
+
+    get_faith getFaith = 65;
+    get_believer getBeliever = 66;
+    loot_faith lootFaith = 67;
+    atk_star_building atkStarBuilding = 68;
+    loot_believer lootBeliever = 69;
+
+    //-------------------GM接口-----------------------
+    //int32 addGayPoint = 61;
+    //bool fullSearch = 62;
+
+    //-------------------邮件接口----------------------
+    get_all_mail getAllMail = 70;
+    draw_mail drawMail = 71;
+    remove_mail removeMail = 72;
+    create_mail createMail = 73;
+    get_mail getMail = 74;
+
+    //-------------------引导相关----------------------
+    bool guideTask = 80; //引导任务
+    int32 guideBuildingFaith = 81; //引导领取建筑信 传领取的建筑类型
+    bool guideRevenge = 82; //引导复仇
+
+    //-------------------事件任务相关-------------------
+    random_event_task randomEventTask = 101;            //转动星盘获取随机事件任务
+
+    get_task_list getTaskList = 102; //获取任务列表
+    set_task_ending setTaskEnding = 103;  //设置结局ID
+    int32 cancelTask = 104; //放弃任务
+
+    random_revenge_task randomRevengeTask = 105; //随机复仇任务
+
+    random_dial randomDial = 106; //转盘随机
+    multiple_dial_reward multipleDialReward = 107; //
+
+    //---排行榜---
+
+    get_rank_info getRankInfo = 150;
+
+
+    //--------------------公众号相关-----------------------
+    bool activePrivilege = 160;  //是否激活特权
+
+    //--------------------关注相关-------------------------
+    follow follow = 220;    //关注用户
+    unfollow unfollow = 221;  //取消关注
+    get_follower_list getFollowerList = 222; //获取关注列表
+    int32 getFollowerDetail = 223; //获取关注者详细信息 传用户id
+    get_following_list getFollowingList = 224; //获取被关注列表
+    follow_each followEach = 225;
+
+    get_follow_state getFollowState = 226;
+
+    //-------------------好友相关---------------------
+    get_friend_list getFriendList = 230;  //获取好友列表
+    get_friend_detail_info getFriendDetailInfo = 231; //获取好友信息
+    add_friend_request addFriendRequest = 232;   //添加好友申请
+    delete_friend deleteFriend = 233;     //移除好友
+    accept_friend_request acceptFriendRequest = 234;     //接受好友申请
+    refuse_friend_request refuseFriendRequest = 235;     //拒绝好友申请
+    search_user searchUser = 236;   //搜索好友
+    get_friend_request_list getFriendRequestList = 237;  //获取好友申请列表
+
+
+    //-------------------朋友圈相关----------------------
+    get_receive_moments getReceiveMoments = 240;   //获取收到朋友圈（好友）消息
+    get_public_moments getPublicMoments = 241;     //获取指定玩家发布的朋友圈消息
+    //add_comment addComment = 242;                  //添加评论
+    public_moment publicMoment = 243;              //发布朋友圈消息
+    remove_moments removeMoments = 244;             //删除朋友圈消息
+
+    get_user_detail getUserDetail = 245; //获取用户详情信息
+
+    //-------------------社交相关------------------------
+    public_sale publicSale = 250; //发布圣物
+    cancel_sale cancelSale = 251; //撤销圣物
+    buy_sale buySale = 252; //购买圣物
+    get_sale_info saleInfo = 253; //获取圣物信息列表
+
+    get_stranger_list getStrangerlist = 255;//获取偶遇记录
+
+
+    read_newsfeed readNewsFeed = 257; //读过该消息
+    get_newsfeed_detail getNewsfeedDetail = 258;
+    get_offline_newsfeed_list getOfflineNewsFeedList = 259; //获取动态消息列表
+    search_item searchItem = 260; //搜索圣物
+
+    get_newsfeed_list getNewsFeedList = 261; //获取动态消息列表
+
+    request_item requestItem = 262; //索取圣物
+    loot_item lootItem = 263; //掠夺圣物
+    accept_item_request acceptItemRequest = 264; //通过索取
+    reject_item_request rejectItemRequest = 265; //拒绝索取
+    get_deal_list getDealList = 266; //获取索取相关信息
+    item_request_overdue itemRequestOverdue = 267; //物品过期索取
+
+    loot_star_believer lootStarBeliever = 270; //掠夺信徒
+
+    bool receiveGlobalSale = 280; //开关是否接收世界频道的交易信息
+    bool getGlobalMessage = 281; //获取最近的世界消息
+
+    public_share publicShare = 290; //游戏内分享
+
+    //-------------------微信分享/看广告---------------
+    public_wechat_share publicWechatShare = 291; //分享到微信
+    draw_wechat_share_reward drawWechatShareReward = 292; // 领取分享奖励
+    get_wechat_share_time getWechatShareTime = 293; // 获取下次分享时间
+    watch_ad_success watchAdSuccess = 294; //看广告成功
+
+    //-------------------星球相关---------------------
+    search_star_info searchStarInfo = 301; //探索星球信息
+    get_star_info_detail getStarInfoDetail = 302;//获取星球详细信息
+    get_star_shield getStarShield = 303; //获取星球防护罩信息
+
+    int32 getStarInfoComplete = 305;//获取星球已完成信息
+    get_star_record_info getStarRecordInfo = 311;//获取星球记录信息
+    set_star_record_info setStarRecordInfo = 312;//设置星球记录信息
+    del_star_record_info delStarRecordInfo = 313;//删除星球记录信息
+    move_star_record_info moveStarRecordInfo = 314;//移动星球记录信息
+    replace_star_record_info replaceStarRecordInfo = 315;//替换星球记录信息
+
+    occupy_star occupyStar = 320;//请求占领星球
+    get_help_repair_info getHelpRepairInfo = 321; //获取求助微信建筑信息
+    //next_star nextStar = 321; //
+    //random_star_info  randomStarInfo = 330;//随机一个目标星球信息
+
+    star_settle starSettle = 325;//星球统计
+    star_flag_info starFlagInfo = 326; //获取星球标识
+    update_star_flag updateStarFlag = 327;//更新星球标识
+    update_all_star_flag updateAllStarFlag = 328; //更新所有星球标识
+
+    cancel_upgrade_star_build cancelUpgradeStarBuild = 339;
+    cancel_repair_star_build cancelRepairStarBuild = 340;
+    acc_repair_star_build accRepairStarBuild = 341;//维护星球建筑
+    repair_star_build repairStarBuild = 342;//请求开始维修建筑物
+    update_star_build_end  updateStarBuildEnd = 350;//请求升级星球建筑结束
+    acc_update_star_build accUpdateStarBuild = 351;//请求升级星球建筑加速
+    get_building_faith getBuildingFaith = 355; //获取星球建筑当前存储的信仰值
+    receive_building_faith receiveBuildingFaith = 356; //领取星球建筑当前存储的信仰值
+    repair_star_build_end repairStarBuildEnd = 357; //修理星球建筑结束
+    random_event_robot randomEventRobot = 360; //随机事件机器人
+    random_guide_robot randomGuideRobot = 361; //随机引导机器人
+
+    //put_item_to_building putItemToBuilding = 360; //放入物品到建筑槽点
+    //remove_item_from_building removeItemFromBuilding = 361; //放入物品到建筑槽点
+
+    //reset_building_groove resetBuildingGroove = 362; //重置建筑槽
+    //active_building_group activeBuildingGroup = 363; //激活图鉴
+    //acc_building_groove_effect accBuildingGrooveEffect = 364; //加速槽的生效
+    //update_groove_effect updateGrooveEffect = 365; //槽生效触发结果
+
+    add_civilization addCivilization = 368; //新增文明度
+    draw_civilization_reward drawCivilizationReward = 369;
+
+
+
+
+    //-------------------统计相关-----------
+
+    update_star_statistics updateStarStatistics = 370;
+    get_star_statistics getStarStatistics = 371; //获取星球统计信息
+    get_star_history getStarHistory = 380;
+
+    //--------------------信徒接口——---------------------
+    upgrade_believer upgradeBeliever = 400; //升级信徒
+    believer_flag_info believerFlagInfo = 401; //信徒标识信息
+    auto_add_believer autoAddBeliever = 402; //自动更新信徒数量
+    update_believer_info updateBelieverInfo = 403; //客户端同步信徒信息
+
+    //--------------------物品接口——---------------------
+    get_bag_item getBagItem = 450; //获取背包物品列表
+    get_item_group getItemGroup = 451; //获取物品图鉴组合列表
+    get_group_reward getGroupReward = 452; //领取物品图鉴组合奖励
+    active_group activeGroup = 453; //尝试组合
+//    active_group_item activeGroupItem = 454; //解锁已开启的组合里的某物品
+    int32 addItem = 455; //引导加入物品，只允许一次
+    get_temp_item getTempItem = 456; //获取零食背包物品
+    takein_bag takeinBag = 457; //物品放入临时背包
+
+    //---------------------交易接口--------
+    get_goods_info getGoodsInfo = 470;
+    buy_goods buyGoods = 471;
+    public_goods publicGoods = 472;
+    cancel_goods cancelGoods = 473;
+
+
+    getHelpItemHistory getHelpItemHistory = 474; //获取圣物求助的历史记录
+    publicItemHelp  publicItemHelp =  475;
+    cancelItemHelp cancelItemHelp =  476;
+    drawItemHelp drawItemHelp =  477;
+    getItemHelp getItemHelp =  478;
+    lootHelpItem lootHelpItem =  479;
+    helpItem helpItem =  480;
+
+
+    //--------------------圣物商城-----------
+    refresh_mall_item refreshMallItem = 481;//刷新商城圣物
+    buy_mall_item buyMallItem = 482;//购买商城圣物
+    auto_refresh_mall_item autoRefreshMallItem = 483; //自动刷新商城圣物
+    get_mall_item getMallItem = 484; // 获取商城圣物
+    get_current_group getCurrentGroup = 485; //获取当前正在解锁的圣物组合
+
+    day_gift_status dayGiftStatus = 490;//是否领取每日礼包
+
+
+    //---------------------服务器内部通信RPC消息-------------------
+    kick_off kickoff = 500; //踢人
+    gen_event genEvent = 501; //生成事件
+    assist_event_request assistEventRequest = 502; //玩家间发送招募请求
+    trigger_task triggerTask = 503; //触发任务
+    int32 deleteEventAssist = 504; //删除事件协助请求信息
+    event_done eventDone = 505; //事件完成
+    event_field_change eventFieldChange =506; //事件扩展字段变更
+
+    transfer_remote_user_session transferRemoteUserSession = 507; //转移用户会话数据，在用户切换登录节点的时候需要转移会话缓存
+
+    correct_civil_reward correctCivilReward = 510;
+    update_unlock_flag updateUnlockFlag = 511;
+
+    query_by_nickname queryByNickname = 515;
+
+    building_reset buildingReset = 520;  //
+    int32 takeinGayPoint = 521; //获取友情点
+    Stranger addStranger = 522; //新增陌生人
+    NewsFeed addNewsFeed = 523; //新增动态消息
+    int32 addShopItem = 524; //充值获取道具
+
+    add_sale addSale = 530;
+    remove_sale removeSale = 531;
+    get_sale getSale = 532;
+    get_sales getSales = 533;
+
+    //---------------------运维消息---------------------------
+
+    //---------------------搜索模块---------------------------
+    update_search_data updateSearchData = 540; //更新搜索数据
+    update_search_help_data updateSearchHelpData = 541; //更新帮助搜索数据
+
+    random_help_target randomHelpTarget = 542; //随机发送帮助信息的目标
+
+    update_random_star updateRandomStar = 543; //更新
+
+    //---------------------日志模块----
+
+    add_log addLog = 550;
+
+    draw_day_gift drawDayGift = 560;
+    //---------------------星球模块内部RPC消息------------
+    alloc_new_star allocNewStar = 600;  //分配一个新星球（内部调）
+   // user_star_info userStarInfo = 602; //获取用户星球信息
+    update_believer updateBeliever = 603; //更新信徒信息
+    login_star_info loginStarInfo = 604 ; //计算法力值上限 传用户id
+    transmit_user_star transmitUserStar = 605; // rpc 调取星球数据
+    help_repair_build_public helpRepairBuildPublic = 606; //发布求助分享的凭据
+    help_repair_build helpRepairBuild = 607; //帮助维修
+    get_current_group_items getCurrentGroupItems = 608; // 获取当前解锁的圣物组合
+    get_event_robot getEventRobot = 609; //获取事件机器人
+    get_owners_by_condition getOwnersByCondition = 610; //通过条件获取uids
+
+    //---------------------passport模块内部RPC消息------
+    channel_login channelLogin = 650; //渠道登录
+    change_user_state changeUserState = 651; //修改用户状态
+    refresh_client_version refreshClientVersion = 652; //刷新客户端版本号
+
+    wechat_event_push wechatEventPush = 653; //推送微信事件消息
+    clean_test_account cleanTestAccount = 654; //清楚测试账号
+    query_by_username queryByUsername = 655; //通过nickname查询
+
+
+    //---------------------center模块内部RPC消息--------
+    get_on_notices getOnNotices = 700;
+
+
+    //---------------------压测的接口---------------------
+    add_attach addAttach = 666;
+    set_buildings setBuildings = 667;
+    set_believers setBelievers = 668;
+
+
+
+    user_push userPush = 1000; //用户推送消息
+}
+
+message user_push {
+    int32 uid = 1; //用户id  -1代表全服推送
+    GS2C message = 2; //推送下次内容
+}
+
+message GS2C {
+    int32 session = 1;
+    repeated int32 sequence = 2;
+    heart_beat_ret heartBeatRet = 4;
+    int64 getServerTimeRet = 5;
+
+    //-----------------登录服接口---------------
+    login_register_ret loginRegisterRet = 6;
+    login_login_ret loginLoginRet = 7;
+    gen_order_ret genOrderRet = 8; //生成订单结果
+
+    //-----------------游戏服接口---------------
+    login_sever_ret loginServerRet = 11;
+
+    create_role_ret createRoleRet = 12;  //创建用户结果
+    join_game_ret joinGameRet = 13; //进入游戏结果
+    leave_game_ret leaveGameRet = 14; //离开游戏结果
+
+    get_avatar_ret getAvatarRet = 15; //获取头像信息结果
+    bool changeDescRet = 16;// 修改个性签名
+    role_info_push getRoleInfoRet = 17; //获取用户概要信息
+
+    get_stars_select_ret getStarsSelectRet = 18; // 获取可选择的星球结果
+    select_star_ret selectStarRet = 19; // 选择星球结果
+    get_star_info_ret getStarInfoRet = 20; //获取星球信息结果
+    build_star_building_ret buildStarBuildingRet = 21; //建造星球建筑结果
+
+    role_display_info_ret roleDisplayInfoRet = 22; //获取显示标识信息
+    update_display_ret updateDisplayRet = 23; //更新显示标识
+
+    buy_shop_item_ret buyShopItemRet = 25; //购买商场道具
+    role_flag_info_ret roleFlagInfoRet = 26; //获取用户标识
+    update_flag_ret updateFlagRet = 27; //更新用户标识
+    update_power_ret updatePowerRet = 28; //更新法力值结果
+
+    //-------------------事件接口-----------------------
+    into_event_ret intoEventRet = 30; //进入事件
+    public_event_ret publicEventRet = 31; //发布事件
+    accept_assist_event_ret acceptAssistEventRet = 32; //加入事件
+
+    select_event_target_ret selectEventTargetRet = 34; //选择事件目标
+    leave_event_ret leaveEventRet = 35; //离开事件
+    assist_event_request_list_ret assistEventRequestListRet = 36; //获取事件协助请求列表
+    update_event_field_ret updateEventFieldRet = 37;  //更新事件扩展字段
+    reject_assist_event_ret rejectAssistEventRet = 38; //拒绝事件协助
+    get_event_ret getEventRet = 39; //获取事件信息
+    random_target_ret randomTargetRet = 40; //随机获取事件目标
+
+    open_card_ret openCardRet = 41; //选卡片
+
+
+    get_event_module_ret getEventModuleRet = 45; //获取事件模块信息
+    done_event_step_ret doneEventStepRet = 46; //完成事件步骤
+    //select_area_ret selectAreaRet = 47;//攻击星球建筑
+
+
+    public_vote_ret publicVoteRet = 50; //发布投票
+    add_event_vote_ret addEventVoteRet = 51; //给事件投票结果
+
+    //capture_believer_ret captureBelieverRet = 55; //抓捕信徒结果
+
+    save_data_ret saveDataRet = 60;  //小游戏数据更新结果
+
+    get_faith_ret getFaithRet = 65;
+    get_believer_ret getBelieverRet = 66;
+    loot_faith_ret lootFaithRet = 67;
+    atk_star_building_ret atkStarBuildingRet = 68;
+    loot_believer_ret lootBelieverRet = 69;
+
+
+    //-------------------GM接口-----------------------
+    bool addGayPointRet = 61;
+    bool fullSearchRet = 62;
+
+    //-------------------邮件接口----------------------
+    get_all_mail_ret getAllMailRet = 70;
+    draw_mail_ret drawMailRet = 71;
+    remove_mail_ret removeMailRet = 72;
+    create_mail_ret createMailRet = 73;
+    get_mail_ret getMailRet = 74;
+
+    //-------------------引导相关接口------------------
+    Task guideTaskRet = 80; //引导任务
+    int32 guideBuildingFaithRet = 81; //引导领取建筑信仰结果，领取到的信仰数量
+    guide_revenge_ret guideRevengeRet = 82; //引导复仇消息
+
+    //-------------------事件任务相关-------------------
+    random_event_task_ret randomEventTaskRet = 101; //转动星盘获取随机事件任务
+    get_task_list_ret getTaskListRet = 102; //获取任务列表
+    //set_task_ending_ret setTaskEndingRet = 103;  //设置结局ID结果
+    int32 cancelTaskRet = 104; //放弃任务结果
+    random_revenge_task_ret randomRevengeTaskRet = 105; //随机复仇任务结果
+
+    random_dial_ret randomDialRet = 106; //转盘随机
+    multiple_dial_reward_ret multipleDialRewardRet = 107; //获取转盘翻倍奖励
+
+    //-------------------排行榜信息-------
+    get_rank_info_ret getRankInfoRet = 150;
+
+
+    //--------------------关注相关-------------------------
+    follow_ret followRet = 220;    //关注用户
+    unfollow_ret unfollowRet = 221;  //取消关注
+    get_follower_list_ret getFollowerListRet = 222; //获取关注列表
+    user_detail_info getFollowerDetailRet = 223; //获取关注者详细信息结果
+    get_following_list_ret getFollowingListRet = 224; //获取被关注列表
+
+    get_follow_state_ret getFollowStateRet = 226;
+
+
+    //-------------------好友相关---------------------com
+    get_friend_list_ret getFriendListRet = 230;  //获取好友列表结果
+    get_friend_detail_info_ret getFriendDetailInfoRet = 231;   //获取好友信息结果
+    add_friend_request_ret addFriendRequestRet = 232;            //添加好友结果
+    delete_friend_ret deleteFriendRet = 233;      //删除好友结果
+    accept_friend_request_ret acceptFriendRequestRet = 234; //接受好友申请结果
+    refuse_friend_request_ret refuseFriendRequestRet = 235;//拒绝好友申请结果
+    search_user_ret searchUserRet = 236;    //搜索好友结果
+    get_friend_request_list_ret getFriendRequestListRet = 237; //获取好友申请列表结果
+
+
+    //-------------------朋友圈相关----------------------
+    get_receive_moments_ret getReceiveMomentsRet = 240;   //获取收到朋友圈（好友）消息
+    get_public_moments_ret getPublicMomentsRet = 241;     //获取指定玩家的朋友圈消息
+    //add_comment_ret addCommentRet = 242;                   //添加评论
+    public_moment_ret publicMomentRet = 243;               //发布朋友圈消息
+    get_user_detail_ret getUserDetailRet = 245; //获取用户详细信息
+
+
+    //-------------------社交相关------------------------
+    public_sale_ret publicSaleRet = 250; //发布圣物
+    cancel_sale_ret cancelSaleRet = 251; //撤销圣物
+    buy_sale_ret buySaleRet = 252; //购买圣物
+    get_sale_info_ret saleInfoRet = 253; //获取圣物信息列表
+    get_stranger_list_ret getStrangerlistRet = 255; //获取偶遇记录
+
+    read_newsfeed_ret readNewsFeedRet = 257;
+    get_newsfeed_detail_ret getNewsfeedDetailRet = 258;
+    get_offline_newsfeed_list_ret getOfflineNewsFeedListRet = 259; //获取动态消息列表
+    search_item_ret searchItemRet = 260; //搜索圣物
+    get_newsfeed_list_ret getNewsFeedListRet = 261; //获取动态消息列表
+    request_item_ret requestItemRet = 262; //索取圣物
+    loot_item_ret lootItemRet = 263; //掠夺圣物
+    accept_item_request_ret acceptItemRequestRet = 264; //通过索取结果
+    reject_item_request_ret rejectItemRequestRet = 265; //拒绝索取结果
+    get_deal_list_ret getDealListRet = 266; //获取索取相关信息结果
+    item_request_overdue_ret itemRequestOverdueRet = 267; //物品索取过期结果
+    loot_star_believer_ret lootStarBelieverRet = 270; //掠夺信徒
+
+    bool receiveGlobalSaleRet = 280; //开关是否接收世界频道的交易信息结果
+    get_global_message_ret getGlobalMessageRet = 281; //获取最近的世界消息
+
+    public_share_ret publicShareRet = 290; //游戏内分享结果
+
+    //-------------------微信分享/看广告---------------
+    public_wechat_share_ret publicWechatShareRet = 291; //分享到微信结果
+    draw_wechat_share_reward_ret drawWechatShareRewardRet = 292; // 领取微信分享奖励
+    get_wechat_share_time_ret getWechatShareTimeRet = 293; // 获取微信下次分享时间
+    watch_ad_success_ret watchAdSuccessRet = 294; // 看广告成功结果
+
+    //-------------------星球相关---------------------
+    search_star_info_ret searchStarInfoRet = 301; //探索星球信息
+    get_star_info_detail_ret getStarInfoDetailRet = 302;//获取星球详细信息
+    get_star_shield_ret getStarShieldRet = 303; //获取星球防护罩信息
+
+    get_star_info_complete_ret getStarInfoCompleteRet = 305;//获取星球已完成信息
+    get_star_record_info_ret getStarRecordInfoRet = 311;//获取星球记录信息
+    set_star_record_info_ret setStarRecordInfoRet = 312;//设置星球记录信息
+    del_star_record_info_ret delStarRecordInfoRet = 313;//删除星球记录信息
+    move_star_record_info_ret moveStarRecordInfoRet = 314;//移动星球记录信息
+    replace_star_record_info_ret replaceStarRecordInfoRet = 315;//替换星球记录信息
+
+    occupy_star_ret occupyStarRet = 320;//返回占领星球信息
+    get_help_repair_info_ret getHelpRepairInfoRet = 321; //获取请求修理建筑信息
+    //next_star_ret nextStarRet = 321;
+    //random_star_info_ret randomStarInfoRet = 330;//随机一个目标星球结果
+
+    star_settle_ret starSettleRet = 325;
+    star_flag_info_ret starFlagInfoRet = 326;//获取星球标识
+    update_star_flag_ret updateStarFlagRet = 327;//更新星球标识
+    update_all_star_flag_ret updateAllStarFlagRet = 328;//更新所有星球标识
+
+    cancel_upgrade_star_build_ret cancelUpgradeStarBuildRet = 339;
+    cancel_repair_star_build_ret cancelRepairStarBuildRet = 340;
+    acc_repair_star_build_ret accRepairStarBuildRet = 341;//加速维护星球建筑
+    repair_star_build_ret repairStarBuildRet = 342;//请求开始维修建筑物
+    update_star_build_end_ret  updateStarBuildEndRet = 350;//请求升级星球建筑结束
+    acc_update_star_build_ret accUpdateStarBuildRet = 351;//请求升级星球建筑加速
+    get_building_faith_ret getBuildingFaithRet = 355; //获取星球建筑当前存储的信仰值
+    receive_building_faith_ret receiveBuildingFaithRet = 356; //领取星球建筑当前存储的信仰值
+    repair_star_build_end_ret repairStarBuildEndRet = 357; //修理星球建筑结束
+
+    random_event_robot_ret randomEventRobotRet = 360; //随机事件机器人
+    random_guide_robot_ret randomGuideRobotRet = 361; //随机引导机器人
+
+    //put_item_to_building_ret putItemToBuildingRet = 360; //放入物品到建筑槽点
+    //remove_item_from_building_ret removeItemFromBuildingRet = 361; //放入物品到建筑槽点
+    //reset_building_groove_ret resetBuildingGrooveRet = 362; //重置建筑槽
+    //active_building_group_ret activeBuildingGroupRet = 363; //激活图鉴
+    //acc_building_groove_effect_ret accBuildingGrooveEffectRet = 364; //加速槽的生效结果
+    //update_groove_effect_ret updateGrooveEffectRet = 365; //槽生效触发
+
+
+    civilization_info addCivilizationRet = 368; //新增文明度
+    draw_civilization_reward_ret drawCivilizationRewardRet = 369;
+
+
+
+    //-------------------统计相关-----------
+
+    update_star_statistics_ret updateStarStatisticsRet = 370;
+    get_star_statistics_ret getStarStatisticsRet = 371; //获取星球历史信息
+    get_star_history_ret getStarHistoryRet = 380;
+
+
+    //--------------------信徒接口——---------------------
+    upgrade_believer_ret upgradeBelieverRet = 400; //升级信徒
+    believer_flag_info_ret believerFlagInfoRet = 401; //信徒标识信息
+    auto_add_believer_ret autoAddBelieverRet = 402; //自动更新信徒数量结果
+    update_believer_info_ret updateBelieverInfoRet = 403; //客户端同步信徒信息
+
+    //--------------------物品接口——---------------------
+    get_bag_item_ret getBagItemRet = 450; //获取背包物品列表
+    get_item_group_ret getItemGroupRet = 451; //获取背包物品列表
+    get_group_reward_ret getGroupRewardRet = 452; //领取物品图鉴组合奖励
+    active_group_ret activeGroupRet = 453; //开启新组合
+//    active_group_item_ret activeGroupItemRet = 454; //解锁已开启的组合里的某物品
+    bool addItemRet = 455; //引导加入物品结果
+    get_temp_item_ret getTempItemRet = 456; //获取零食背包物品
+    takein_bag_ret takeinBagRet = 457; //物品放入临时背包
+
+    //---------------------交易接口--------
+    get_goods_info_ret getGoodsInfoRet = 470;
+    buy_goods_ret buyGoodsRet = 471;
+    public_goods_ret publicGoodsRet = 472;
+    cancel_goods_ret cancelGoodsRet = 473;
+
+    getHelpItemHistoryRet getHelpItemHistoryRet = 474; //获取圣物求助的历史记录
+    publicItemHelpRet  publicItemHelpRet =  475;
+    cancelItemHelpRet cancelItemHelpRet =  476;
+    drawItemHelpRet drawItemHelpRet =  477;
+    getItemHelpRet getItemHelpRet =  478;
+    lootHelpItemRet lootHelpItemRet =  479;
+    helpItemRet helpItemRet =  480;
+
+    //--------------------圣物商城---------------------
+    refresh_mall_item_ret refreshMallItemRet = 481;
+    buy_mall_item_ret buyMallItemRet = 482;
+    auto_refresh_mall_item_ret autoRefreshMallItemRet = 483;
+    get_mall_item_ret getMallItemRet = 484;
+    get_current_group_ret getCurrentGroupRet = 485;
+
+    day_gift_status_ret dayGiftStatusRet = 490;
+
+    //-------------------服务器内部通信RPC消息-------------------------
+    gen_event_ret genEventRet = 501; //生成事件
+    assist_event_request_ret assistEventRequestRet = 502; //玩家间发送招募请求
+    trigger_task_ret triggerTaskRet = 503; //触发任务
+    event_done_ret eventDoneRet = 505; //事件完成
+
+    transfer_remote_user_session_ret transferRemoteUserSessionRet = 507; //转移用户会话数据，在用户切换登录节点的时候需要转移会话缓存
+
+    correct_civil_reward_ret correctCivilRewardRet = 510;
+    update_unlock_flag_ret updateUnlockFlagRet = 511;
+
+    query_by_nickname_ret queryByNicknameRet = 515;
+
+    add_sale_ret addSaleRet = 530;
+    get_sale_ret getSaleRet = 532;
+    get_sales_ret getSalesRet = 533;
+
+    random_help_target_ret randomHelpTargetRet = 542; //随机发送帮助信息的目标
+
+    add_log addLogRet = 550;
+
+    draw_day_gift_ret drawDayGiftRet = 560;
+
+    //---------------------星球模块内部RPC消息------------
+    alloc_new_star_ret allocNewStarRet = 600;  //分配一个新星球（内部调）
+    //user_star_info_ret userStarInfoRet = 602; //获取用户星球信息
+    update_believer_ret updateBelieverRet = 603; //更新信徒信息
+    login_star_info_ret loginStarInfoRet = 604 ; //
+    transmit_user_star_ret transmitUserStarRet = 605;
+    help_repair_build_public_ret helpRepairBuildPublicRet = 606;
+    help_repair_build_ret helpRepairBuildRet = 607;
+    get_current_group_items_ret getCurrentGroupItemsRet = 608; // 获取当前正在解锁的圣物组合结果
+    get_event_robot_ret getEventRobotRet = 609; //获取事件机器人
+    get_owners_by_condition_ret getOwnersByConditionRet = 610;
+
+    //---------------------passport模块内部RPC消息------
+    channel_login_ret channelLoginRet = 650; //渠道登录
+    change_user_state_ret changeUserStateRet = 651; //修改用户状态.
+    refresh_client_version_ret refreshClientVersionRet = 652; //刷新客户端版泵好
+
+    clean_test_account_ret cleanTestAccountRet = 654;
+    query_by_username_ret queryByUsernameRet = 655;
+
+    //---------------------center模块内部RPC消息--------
+    get_on_notices_ret getOnNoticesRet = 700;
+
+
+    //---------------压力测试用的接口
+    add_attach_ret addAttachRet = 666;
+    set_buildings_ret setBuildingsRet = 667;
+    set_believers_ret setBelieversRet = 668;
+
+    remove_sale_ret removeSaleRet = 531;
+
+    //----推送接口-------------
+
+    result_push resultPush = 1000;
+    kickoff_push kickoffPush = 1001;
+
+    flag_info roleFlagPush = 1002; //用户标识推送
+    role_power_push rolePowerPush = 1003; //用户法力值变更推送
+    role_info_push roleInfoPush = 1004; //用户属性信息变更推送
+    open_star_push openStarPush = 1005; //解锁星球推送
+    civilization_info civilizationPush = 1006; //文明度推送
+
+
+    Task taskPush = 1007; //任务信息变更推送
+    assist_event_request_push assistEventRequestPush = 1008; //事件协助请求
+
+    assist_result_push assistResultPush = 1009; //好友招募结果推送
+    event_field_push eventFieldPush = 1011; //事件字段变更推送
+    event_step_push eventStepPush = 1012; //事件步骤信息推送
+    displayStarUid_push displayStarUidPush = 1013; //显示星球变更推送
+    vote_push votePush = 1014; //投票信息推送
+    vote_finish_push voteFinishPush = 1015; //投票完成推送
+
+    user_info addFriendPush = 1021;   //新增好友推送
+    friend_request_info addFriendRequestPush = 1022;     //新增好友申请推送
+    delete_friend_push deleteFriendPush = 1023;     //删除好友推送
+    refuse_friend_push refuseFriendPush = 1026;     //拒绝好友推送
+
+//    follow_push followPush = 1024;     //关注推送
+//    unfollow_push unfollowPush = 1025;   //取消关注推送
+
+    star_info_detail starInfoPush = 1030; //星球信息推送
+    building_info_push buildingInfoPush = 1031; //星球信息变更推送
+
+    believer_push believerPush = 1040; //信徒信息变更推送
+    item_group_open_push itemGroupOpenPush = 1041; //圣物组合开启推送
+
+
+    bag_item itemPush = 1050; //获得道具推送
+    Stranger strangerPush = 1051; //新增陌生人推送
+    NewsFeed newsFeedPush = 1052; //动态消息变更推送，存在更新，不存在新增
+    int32 followPush = 1053; //关注推送
+    sale salePush = 1054; //好友新出售物品推送
+    int32 onlinePush = 1055; //在线推送
+    int32 offlinePush = 1056; //离线推送
+    building_buff_info buildingBuffPush = 1057; //建筑buff变更推送
+    int32 tempItemPush = 1058; //临时物品获取推送
+    Mail mailPush = 1059; //新邮件推送
+    score_push scorePush = 1060; //排行榜分数变更推送
+
+    global_message globalMessagePush = 1070; //全局贩卖信息推送
+    lamp_message lampMessagePush = 1071;//跑马灯信息推送
+    notice_message noticeMessagePush = 1072;//公告推送
+
+    repeated string doneRevenge = 1080; //完成复仇 推送所有变更的消息id
+
+    ItemHelp itemHelpPush = 1081; //圣物求助信息变更推送
+
+    flag_info starFlagPush = 1082; //星球标识信息推送
+
+    Reward dayGiftPush = 1090; //每日礼包推送
+}
+
+
+//rpc 服务间转发
+service RPCService {
+    rpc request(C2GS) returns(stream GS2C);  //
+    rpc receive(stream C2GS) returns(stream GS2C);  //
+}

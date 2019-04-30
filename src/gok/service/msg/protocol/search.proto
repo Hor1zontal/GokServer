@@ -1,0 +1,39 @@
+syntax = "proto3";
+package protocol;
+//角色相关接口
+//import "aacommon.proto";
+
+//更新索引信息
+message update_search_data {
+    map<int32, star_opt> opts = 1; //key: 星球id  value:更新数值
+    bool sync = 3; //是否同步消息，同步数据不需要入库,主节点已经处理好了
+}
+
+//更新活跃的星球
+message update_random_star {
+    int32 starID = 1;
+    map<int32, int32> opt = 2;
+    bool sync = 3; //是否同步消息，同步数据不需要入库,主节点已经处理好了
+}
+
+message star_opt {
+    map<int32, int32> opt = 1; //key: 1、更新星球信徒总数量  2、更新星球建筑总等级 3 删除星球索引 - value: 更新的数值
+}
+
+message update_search_help_data {
+    repeated int32 uid = 1;
+    int32 opt = 2;
+    int32 param = 3;
+    bool sync = 4; //是否同步消息，同步数据不需要入库,主节点已经处理好了
+}
+
+message random_help_target {
+    int32 uid = 1; //
+    int32 starType = 2; //
+    int32 itemID = 3;
+    int32 count = 4; //随机的玩家个数
+}
+
+message random_help_target_ret {
+    repeated int32 targets = 1;
+}

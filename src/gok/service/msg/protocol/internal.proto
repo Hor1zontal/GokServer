@@ -1,0 +1,46 @@
+syntax = "proto3";
+package protocol;
+import "aacommon.proto";
+
+message add_attach {
+    int32 faith = 1;
+    int32 power = 2;
+    int32 diamond = 3;
+    int32 gay_point = 4;
+    repeated bag_item items = 5;
+    repeated believer_info believers = 6;
+}
+
+message add_attach_ret {
+    bool result = 1;
+}
+
+message set_buildings {
+    int32 starID = 1;
+    int32 level = 2;
+}
+
+message set_buildings_ret {
+    repeated int32 result = 1;
+}
+
+message set_believers {
+    int32 level = 1;
+}
+
+message set_believers_ret {
+    repeated believer_info believers = 1;
+}
+
+//message remove_attach {
+//    int32 faith = 1;
+//    int32 power = 2;
+//    int32 diamond = 3;
+//    int32 gay_point = 4;
+//    repeated bag_item items = 5;
+//    repeated believer_info believers = 6;
+//}
+//
+//message remove_attach_ret {
+//    bool result = 1;
+//}
